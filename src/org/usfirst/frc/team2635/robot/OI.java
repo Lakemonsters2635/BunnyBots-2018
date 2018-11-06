@@ -42,6 +42,6 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	
-	Joystick leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
-	Joystick rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
+	public Joystick leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
+	public Joystick rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
 }
