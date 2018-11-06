@@ -8,6 +8,8 @@
 package org.usfirst.frc.team2635.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -44,4 +46,9 @@ public class OI {
 	
 	public Joystick leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
 	public Joystick rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
+	
+	public Button kickerButton = new JoystickButton(leftStick, RobotMap.KICKER_BUTTON);
+
 }
+
+
