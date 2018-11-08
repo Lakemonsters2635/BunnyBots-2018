@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2635.robot.commands.DriveCommand;
 import org.usfirst.frc.team2635.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
 import org.usfirst.frc.team2635.robot.subsystems.Drive;
 import org.usfirst.frc.team2635.robot.commands.KickerCommand;
 import org.usfirst.frc.team2635.robot.subsystems.ExampleSubsystem;
@@ -34,6 +35,7 @@ public class Robot extends TimedRobot {
 	DriveCommand driveCommand;
 	public static Drive drive;
 	public static Kicker kicker;
+	public static ColorSensorTCS34725 colorSensor;
 	
 	KickerCommand kickerCommand;
 	Command m_autonomousCommand;
@@ -47,7 +49,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = new OI();
 		kicker = new Kicker();
-		
+		colorSensor = new ColorSensorTCS34725();
 		kickerCommand = new KickerCommand();
 		
 		oi.kickerButton.toggleWhenPressed(kickerCommand); //TODO See if we need to do kickerCommand.set() elsewhere in order to get it to start without button press
@@ -128,6 +130,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		final ColorSensorTCS34725.TCS34725Measurement meas = colorSensor.getMeasurement();
+		System.out.println("Sensor status: " + meas.getStatus());
+		System.out.println("Clear data: " + meas.getClearData());
+		System.out.println("TCS34725 Red: " + meas.getRedData());
+		System.out.println("TCS34725 Blue: " + meas.getBlueData());
+		System.out.println("TCS34725 Green: " + meas.getGreenData());
 	}
 
 	/**
