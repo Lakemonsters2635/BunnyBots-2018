@@ -130,12 +130,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		final ColorSensorTCS34725.TCS34725Measurement meas = colorSensor.getMeasurement();
-		System.out.println("Sensor status: " + meas.getStatus());
-		System.out.println("Clear data: " + meas.getClearData());
-		System.out.println("TCS34725 Red: " + meas.getRedData());
-		System.out.println("TCS34725 Blue: " + meas.getBlueData());
-		System.out.println("TCS34725 Green: " + meas.getGreenData());
+		colorSensor.senseLoop();
 	}
 
 	/**

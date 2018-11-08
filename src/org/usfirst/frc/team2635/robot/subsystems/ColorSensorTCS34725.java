@@ -6,7 +6,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.TimerTask;
+
+import org.opencv.core.Rect;
+import org.usfirst.frc.team2635.robot.Robot;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SensorBase;
@@ -59,6 +63,10 @@ public class ColorSensorTCS34725 extends Subsystem{
 	private double m_period;
 	private java.util.Timer m_pollLoop;
 	private int m_deviceAddress;
+	private int tca_addr;
+	private I2C muxchat;
+	private Boolean[] confirmedSensors;
+	
 
 	private TCS34725Gain m_gain = kDefaultGain;
 	private TCS34725Integration m_integrationTime = kDefaultIntegrationTime;
@@ -78,12 +86,12 @@ public class ColorSensorTCS34725 extends Subsystem{
 			m_greenData = greenData;
 		}
 
-		TCS34725Measurement(TCS34725Measurement sensorMeasurement) {
-			this(	sensorMeasurement.m_status,
-					sensorMeasurement.m_clearData,
-					sensorMeasurement.m_redData,
-					sensorMeasurement.m_blueData,
-					sensorMeasurement.m_greenData);
+		TCS34725Measurement(TCS34725Measurement m_CurrentMeasurement) {
+			this(	m_CurrentMeasurement.m_status,
+					m_CurrentMeasurement.m_clearData,
+					m_CurrentMeasurement.m_redData,
+					m_CurrentMeasurement.m_blueData,
+					m_CurrentMeasurement.m_greenData);
 		}
 		
 		public byte getStatus() {
@@ -108,7 +116,7 @@ public class ColorSensorTCS34725 extends Subsystem{
 	}
 
 
-	private TCS34725Measurement m_CurrentMeasurement;
+	private ArrayList<TCS34725Measurement> m_CurrentMeasurement;
 
 	public ColorSensorTCS34725() {
 		this(I2C.Port.kOnboard, kDefaultPeriod);
@@ -118,25 +126,34 @@ public class ColorSensorTCS34725 extends Subsystem{
 	}
 
 	public ColorSensorTCS34725(I2C.Port port, double period) {
-		if (instances < 1) {
+		muxchat = new I2C(I2C.Port.kOnboard, 0x70);
+		tcaselect(0);
+		confirmedSensors = new Boolean[8];
 			m_i2c = new I2C(port, kAddress);
-			m_CurrentMeasurement = new TCS34725Measurement((byte) 0, 0, 0, 0, 0);
+			m_CurrentMeasurement = new ArrayList<TCS34725Measurement>();
+			for(int i = 0; i<8;i++){
+				m_CurrentMeasurement.add(null);
+			}
 			// verify sensor is there
-			byte id = getRegister(TCS34725Register.ID);
-			if (id == kID) { 
-				instances ++;
-				TCS34725Init();
+			for(int i = 0; i<8;i++){
+				tcaselect(i);
+				byte id = getRegister(TCS34725Register.ID);
+				if (id == kID) { 
+					instances ++;
+					TCS34725Init();	
+					confirmedSensors[i] = true;
+					System.out.println("Found a TCS34725 at mux port "+ i);
+				} else {
+					confirmedSensors[i] = false;
+					System.out.println("Can't Find a TCS34725 at mux port "+ i);
+				}
+				
+			}
+			if(instances > 0){
 				m_period = period;
 				m_pollLoop = new java.util.Timer();
 				m_pollLoop.schedule(new PollTCS34725Task(this), 0L, (long) (m_period * 1000));
-								
-			} else {
-				System.out.println("Can't Find the TCS34725");
 			}
-		} else {
-			System.out.println("Can't have multiple TCS34725 at the same address");
-		}
-
 	}
 
 	/**
@@ -150,6 +167,30 @@ public class ColorSensorTCS34725 extends Subsystem{
 		}
 	}	
 
+	public void tcaselect(int a){
+		if(a<8 && a>=0){
+			muxchat.write(0, 1 << a);
+		}
+	}
+	
+	public void senseLoop(){
+		for(int i = 0; i<8;i++){
+			if(confirmedSensors[i]){
+				System.out.println("Sensor at mux port "+ i);
+				final ColorSensorTCS34725.TCS34725Measurement meas = Robot.colorSensor.getMeasurement(i);
+				System.out.println("Sensor status: " + meas.getStatus());
+				System.out.println("Clear data: " + meas.getClearData());
+				System.out.println("TCS34725 Red: " + meas.getRedData());
+				System.out.println("TCS34725 Blue: " + meas.getBlueData());
+				System.out.println("TCS34725 Green: " + meas.getGreenData());
+				System.out.println("");
+			}
+		}
+	}
+	
+	
+	
+	
 	public boolean isInitialized(){
 		return isInit;
 	}
@@ -173,30 +214,31 @@ public class ColorSensorTCS34725 extends Subsystem{
 		return false;
 	}
 
-	private byte readColors(){
+	private void readColors(){
 		byte status;
 		int clear;
 		int red;
 		int blue;
 		int green;
-		
-		if (!isInitialized()) {
-			TCS34725Init();
-		}
-		status = getRegister(TCS34725Register.STATUS);
-		clear = getRegister16bit(TCS34725Register.CDATAL);
-		red = getRegister16bit(TCS34725Register.RDATAL);
-		blue = getRegister16bit(TCS34725Register.BDATAL);		
-		green = getRegister16bit(TCS34725Register.GDATAL);
+		for(int i = 0; i<8;i++){
+			if(confirmedSensors[i]){
+				tcaselect(i);
+				status = getRegister(TCS34725Register.STATUS);
+				clear = getRegister16bit(TCS34725Register.CDATAL);
+				red = getRegister16bit(TCS34725Register.RDATAL);
+				blue = getRegister16bit(TCS34725Register.BDATAL);		
+				green = getRegister16bit(TCS34725Register.GDATAL);
 
-		// TCS34725Measurement class is immutable so we can skip synchronization
-		m_CurrentMeasurement = new TCS34725Measurement (status, clear, red, blue, green);
-		return (status);
+				// TCS34725Measurement class is immutable so we can skip synchronization
+				m_CurrentMeasurement.set(i,new TCS34725Measurement(status, clear, red, blue, green));
+			}
+		}
+		
 	}
 
 	
-	public TCS34725Measurement getMeasurement() {
-		return new TCS34725Measurement(m_CurrentMeasurement);
+	public TCS34725Measurement getMeasurement(int i) {
+		return m_CurrentMeasurement.get(i);
 	}
 
 	private class PollTCS34725Task extends TimerTask {
