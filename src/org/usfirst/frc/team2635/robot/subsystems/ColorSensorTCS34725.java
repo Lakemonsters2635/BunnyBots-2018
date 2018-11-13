@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2635.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -15,6 +16,10 @@ import org.usfirst.frc.team2635.robot.Robot;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class ColorSensorTCS34725 extends Subsystem{
 
@@ -184,6 +189,12 @@ public class ColorSensorTCS34725 extends Subsystem{
 				System.out.println("TCS34725 Blue: " + meas.getBlueData());
 				System.out.println("TCS34725 Green: " + meas.getGreenData());
 				System.out.println("");
+				SmartDashboard.putNumber(i+"Sensor status:", meas.getStatus());
+				SmartDashboard.putNumber(i+"Clear data:", meas.getClearData());
+				SmartDashboard.putNumber(i+"Red:", meas.getRedData());
+				SmartDashboard.putNumber(i+"Blue:", meas.getBlueData());
+				SmartDashboard.putNumber(i+"Green:", meas.getGreenData());
+				
 			}
 		}
 	}
