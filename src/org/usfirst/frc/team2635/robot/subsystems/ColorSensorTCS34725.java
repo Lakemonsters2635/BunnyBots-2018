@@ -179,6 +179,7 @@ public class ColorSensorTCS34725 extends Subsystem{
 	}
 	
 	public void senseLoop(){
+		
 		for(int i = 0; i<8;i++){
 			if(confirmedSensors[i]){
 				System.out.println("Sensor at mux port "+ i);
@@ -189,17 +190,15 @@ public class ColorSensorTCS34725 extends Subsystem{
 				System.out.println("TCS34725 Blue: " + meas.getBlueData());
 				System.out.println("TCS34725 Green: " + meas.getGreenData());
 				System.out.println("");
-				SmartDashboard.putNumber(i+"Sensor status:", meas.getStatus());
-				SmartDashboard.putNumber(i+"Clear data:", meas.getClearData());
-				SmartDashboard.putNumber(i+"Red:", meas.getRedData());
-				SmartDashboard.putNumber(i+"Blue:", meas.getBlueData());
-				SmartDashboard.putNumber(i+"Green:", meas.getGreenData());
+				SmartDashboard.putNumber(i + " " + "Sensor status:", meas.getStatus());
+				SmartDashboard.putNumber(i + " " + "Clear data:", meas.getClearData());
+				SmartDashboard.putNumber(i + " " + "Red:", meas.getRedData());
+				SmartDashboard.putNumber(i + " " + "Blue:", meas.getBlueData());
+				SmartDashboard.putNumber(i + " " + "Green:", meas.getGreenData());
 				
 			}
 		}
 	}
-	
-	
 	
 	
 	public boolean isInitialized(){
