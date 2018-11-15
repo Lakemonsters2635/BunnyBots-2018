@@ -182,19 +182,36 @@ public class ColorSensorTCS34725 extends Subsystem{
 		
 		for(int i = 0; i<8;i++){
 			if(confirmedSensors[i]){
-				System.out.println("Sensor at mux port "+ i);
+				//System.out.println("Sensor at mux port "+ i);
 				final ColorSensorTCS34725.TCS34725Measurement meas = Robot.colorSensor.getMeasurement(i);
-				System.out.println("Sensor status: " + meas.getStatus());
-				System.out.println("Clear data: " + meas.getClearData());
-				System.out.println("TCS34725 Red: " + meas.getRedData());
-				System.out.println("TCS34725 Blue: " + meas.getBlueData());
-				System.out.println("TCS34725 Green: " + meas.getGreenData());
-				System.out.println("");
-				SmartDashboard.putNumber(i + " " + "Sensor status:", meas.getStatus());
-				SmartDashboard.putNumber(i + " " + "Clear data:", meas.getClearData());
-				SmartDashboard.putNumber(i + " " + "Red:", meas.getRedData());
-				SmartDashboard.putNumber(i + " " + "Blue:", meas.getBlueData());
-				SmartDashboard.putNumber(i + " " + "Green:", meas.getGreenData());
+				double redData = meas.getRedData();
+				double blueData = meas.getBlueData();
+				double greenData = meas.getGreenData();
+				double statData = meas.getStatus();
+				double clearData = meas.getClearData();
+//				System.out.println("Sensor status: " + meas.getStatus());
+//				System.out.println("Clear data: " + meas.getClearData());
+//				System.out.println("TCS34725 Red: " + meas.getRedData());
+//				System.out.println("TCS34725 Blue: " + meas.getBlueData());
+//				System.out.println("TCS34725 Green: " + meas.getGreenData());
+//				System.out.println("");
+				SmartDashboard.putNumber(i + " Sensor status:", meas.getStatus());
+				SmartDashboard.putNumber(i + " Clear data:", meas.getClearData());
+				SmartDashboard.putNumber(i + " Red:", meas.getRedData());
+				SmartDashboard.putNumber(i + " Blue:", meas.getBlueData());
+				SmartDashboard.putNumber(i + " Green:", meas.getGreenData());
+				
+				//Test Color Parameters
+				if(redData < 600 && blueData < 500 && greenData < 500){
+					SmartDashboard.putString(i + " Ball Status:", "No Ball");
+				} else if(redData > (blueData + greenData)){
+					SmartDashboard.putString(i + " Ball Status:", "Red Ball");
+				} else if(blueData > redData && greenData > redData){
+					SmartDashboard.putString(i + " Ball Status:", "Blue Ball");
+				} else{
+					SmartDashboard.putString(i + " Ball Status:", "Unknown Object");
+				}
+				
 				
 			}
 		}
