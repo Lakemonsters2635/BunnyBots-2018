@@ -15,7 +15,10 @@ public class Vision extends Subsystem {
 	
 	public Vision() {
 		camera = new USBCamera();	
+		camera.setSize(160, 90); //resolution
+		camera.setFPS(10);
 		CameraServer.getInstance().startAutomaticCapture(camera);
+		
 	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
