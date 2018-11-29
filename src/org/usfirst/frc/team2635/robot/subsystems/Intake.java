@@ -1,23 +1,26 @@
 package org.usfirst.frc.team2635.robot.subsystems;
 
+import org.usfirst.frc.team2635.robot.RobotMap;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.vision.CameraServer;
-import edu.wpi.first.wpilibj.vision.USBCamera;
+
 /**
  *
  */
-public class Vision extends Subsystem {
+public class Intake extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	USBCamera camera;
 	
-	public Vision() {
-		camera = new USBCamera();	
-		camera.setSize(160, 90); //resolution
-		camera.setFPS(10);
-		CameraServer.getInstance().startAutomaticCapture(camera);
-		
+	WPI_TalonSRX intakeMotor;
+	
+	public Intake(){
+		intakeMotor = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR_CHANNEL);
+	}
+	public void setIntake(double speed){
+		intakeMotor.set(speed);
 	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

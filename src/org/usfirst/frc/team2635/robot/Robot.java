@@ -13,12 +13,16 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team2635.robot.commands.DispenserCommand;
 import org.usfirst.frc.team2635.robot.commands.DriveCommand;
 import org.usfirst.frc.team2635.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2635.robot.commands.IntakeCommand;
 import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
+import org.usfirst.frc.team2635.robot.subsystems.Dispenser;
 import org.usfirst.frc.team2635.robot.subsystems.Drive;
 import org.usfirst.frc.team2635.robot.commands.KickerCommand;
 import org.usfirst.frc.team2635.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team2635.robot.subsystems.Intake;
 import org.usfirst.frc.team2635.robot.subsystems.Kicker;
 import org.usfirst.frc.team2635.robot.subsystems.Vision;
 
@@ -42,9 +46,15 @@ public class Robot extends TimedRobot {
 	public static Kicker kicker;
 	public static ColorSensorTCS34725 colorSensor;
 	public static Vision vision;
+	public static Intake intake;
+	public static Dispenser dispenser;
 	
 	KickerCommand kickerCommand;
 	Command m_autonomousCommand;
+	IntakeCommand intakeCommand;
+	DispenserCommand dispenserCommand;
+	
+	
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
@@ -56,16 +66,23 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		kicker = new Kicker();
 		colorSensor = new ColorSensorTCS34725();
-		kickerCommand = new KickerCommand();
 		vision = new Vision();
+		intake = new Intake();
+		drive = new Drive();
+		dispenser = new Dispenser();
+		
+		driveCommand = new DriveCommand();
+		kickerCommand = new KickerCommand();
+		dispenserCommand =new DispenserCommand();
 		
 		oi.kickerButton.toggleWhenPressed(kickerCommand); //TODO See if we need to do kickerCommand.set() elsewhere in order to get it to start without button press
+		oi.intakeButton.toggleWhenPressed(intakeCommand);
+		oi.dispenserButton.toggleWhenPressed(dispenserCommand);
 		
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		drive = new Drive();
-		driveCommand = new DriveCommand();
+		
 	}
 
 	/**
