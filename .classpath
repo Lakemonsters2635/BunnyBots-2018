@@ -11,8 +11,12 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix_WPIAPI-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix_WPIAPI.jar"/>
+=======
+	<classpathentry kind="var" path="USERLIBS_DIR/niVisionWPI.jar"/>
+>>>>>>> parent of 4a5a465... Setup Dispenser and Intake Code
 =======
 	<classpathentry kind="var" path="USERLIBS_DIR/niVisionWPI.jar"/>
 >>>>>>> parent of 4a5a465... Setup Dispenser and Intake Code
