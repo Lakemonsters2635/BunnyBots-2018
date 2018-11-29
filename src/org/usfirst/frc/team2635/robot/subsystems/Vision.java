@@ -2,11 +2,16 @@ package org.usfirst.frc.team2635.robot.subsystems;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+<<<<<<< HEAD
 import edu.wpi.cscore.UsbCamera;
 //import edu.wpi.first.wpilibj.vision.CameraServer;
 //import edu.wpi.first.wpilibj.vision.USBCamera;
 //import edu.wpi.first.wpilibj.vision.;
 
+=======
+import edu.wpi.first.wpilibj.vision.CameraServer;
+import edu.wpi.first.wpilibj.vision.USBCamera;
+>>>>>>> 4a5a4652b641283efb68d988feaee70b8e4fb060
 /**
  *
  */
