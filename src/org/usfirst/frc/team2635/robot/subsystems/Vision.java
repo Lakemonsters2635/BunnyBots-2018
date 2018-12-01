@@ -4,9 +4,10 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import edu.wpi.cscore.UsbCamera;
-//import edu.wpi.first.wpilibj.vision.CameraServer;
-//import edu.wpi.first.wpilibj.vision.USBCamera;
-//import edu.wpi.first.wpilibj.vision.;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.MjpegServer;
+
 
 /**
  *
@@ -18,11 +19,31 @@ public class Vision extends Subsystem {
 	UsbCamera camera;
 	
 	public Vision() {
-		camera = new UsbCamera("camera_1", 0);
-		camera.setResolution(160, 90);
-		//camera.setSize(160, 90); //resolution
-		camera.setFPS(10);
-		CameraServer.getInstance().startAutomaticCapture(camera);
+
+		// Creates UsbCamera and MjpegServer [1] and connects them
+
+		CameraServer.getInstance().startAutomaticCapture();
+
+		// Creates the CvSink and connects it to the UsbCamera 
+		CvSink cvSink = CameraServer.getInstance().getVideo();
+
+		// Creates the CvSource and MjpegServer [2] and connects them
+		//CvSource outputStream = new CvSource("Blur", PixelFormat.kMJPEG, 640, 480, 10);
+		CameraServer.getInstance().putVideo("Blur", 640, 480); 
+		
+//		UsbCamera usbCamera = new UsbCamera("USB Camera 0", 0);
+//
+//		MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 1181);
+//
+//		mjpegServer1.setSource(usbCamera); CvSink cvSink = new CvSink("opencv_USB Camera 0");
+//
+//		cvSink.setSource(usbCamera);
+//
+//		CvSource outputStream = new CvSource("Blur", PixelFormat.kMJPEG, 640, 480, 30);
+//
+//		MjpegServer mjpegServer2 = new MjpegServer("serve_Blur", 1182);
+//
+//		mjpegServer2.setSource(outputStream);
 		
 	}
     public void initDefaultCommand() {
