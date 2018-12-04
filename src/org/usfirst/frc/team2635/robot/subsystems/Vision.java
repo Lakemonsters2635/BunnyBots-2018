@@ -9,6 +9,9 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.MjpegServer;
 
 
+//import edu.wpi.first.wpilibj.vision.CameraServer;
+import edu.wpi.first.wpilibj.vision.USBCamera;
+
 /**
  *
  */
