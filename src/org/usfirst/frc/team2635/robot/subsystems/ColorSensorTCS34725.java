@@ -137,7 +137,7 @@ public class ColorSensorTCS34725 extends Subsystem{
 			m_i2c = new I2C(port, kAddress);
 			m_CurrentMeasurement = new ArrayList<TCS34725Measurement>();
 			for(int i = 0; i<8;i++){
-				m_CurrentMeasurement.add(null);
+				m_CurrentMeasurement.add(new TCS34725Measurement((byte)0, 0, 0, 0, 0));
 			}
 			// verify sensor is there
 			for(int i = 0; i<8;i++){
@@ -173,17 +173,18 @@ public class ColorSensorTCS34725 extends Subsystem{
 	}	
 
 	public void tcaselect(int a){
-		if(a<8 && a>=0){
+		if(a<8 && a>-1){
 			muxchat.write(0, 1 << a);
 		}
 	}
 	
 	public void senseLoop(){
-		
+		//System.out.println("Enter Sense Loop");
 		for(int i = 0; i<8;i++){
 			if(confirmedSensors[i]){
 				//System.out.println("Sensor at mux port "+ i);
 				final ColorSensorTCS34725.TCS34725Measurement meas = Robot.colorSensor.getMeasurement(i);
+				//System.out.println(meas);
 				double redData = meas.getRedData();
 				double blueData = meas.getBlueData();
 				double greenData = meas.getGreenData();
@@ -233,8 +234,9 @@ public class ColorSensorTCS34725 extends Subsystem{
 	}
 	
 	private boolean isFinishedMeasure(){
+		tcaselect(0);
 		byte status = getRegister(TCS34725Register.STATUS);
-
+		
 		if((status & 0x01) != 0){
 			return true;
 		}
@@ -247,6 +249,7 @@ public class ColorSensorTCS34725 extends Subsystem{
 		int red;
 		int blue;
 		int green;
+		
 		for(int i = 0; i<8;i++){
 			if(confirmedSensors[i]){
 				tcaselect(i);
