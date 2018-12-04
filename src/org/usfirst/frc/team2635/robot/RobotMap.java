@@ -18,7 +18,10 @@ public class RobotMap {
 	public static final int LEFT_JOYSTICK = 1;
 	
 	public static final int KICKER_BUTTON = 7;
+	public static final int EXTENDER_BUTTON = 8;
 	
+	public static final int EXTENDER_IN_CHANNEL = 42;
+	public static final int EXTENDER_OUT_CHANNEL = 42;
 	
 	public static final int KICKER_MOTOR_CHANNEL = 47;
 	
