@@ -23,12 +23,12 @@ public class RobotMap {
 	public static final int KICKER_BUTTON = 7;
 	public static final int EXTENDER_BUTTON = 8;
 	
-	public static final int EXTENDER_IN_CHANNEL = 42;
-	public static final int EXTENDER_OUT_CHANNEL = 42;
+	public static final int EXTENDER_IN_CHANNEL = 0;
+	public static final int EXTENDER_OUT_CHANNEL = 1;
 	
-	public static final int KICKER_MOTOR_CHANNEL = 47;
-	public static final int DISPENSER_OUT_CHANNEL = 0;
-	public static final int DISPENSER_IN_CHANNEL = 0;
+	public static final int KICKER_MOTOR_CHANNEL = 0;
+	public static final int DISPENSER_OUT_CHANNEL = 2;
+	public static final int DISPENSER_IN_CHANNEL = 3;
 	public static final int INTAKE_MOTOR_CHANNEL = 0;
 	public static final int INTAKE_BUTTON = 0;
 	public static final int DISPENSER_BUTTON = 0;

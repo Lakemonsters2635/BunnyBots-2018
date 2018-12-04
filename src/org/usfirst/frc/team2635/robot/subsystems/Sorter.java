@@ -21,14 +21,14 @@ public class Sorter extends Subsystem {
 	
 	DoubleSolenoid[] outputs;
 	public Sorter() {
-		sorter0Good = new DoubleSolenoid(0,0);
-		sorter0Bad = new DoubleSolenoid(0,0);
-		sorter1Good = new DoubleSolenoid(0,0);
-		sorter1Bad = new DoubleSolenoid(0,0);
-		sorter2Good = new DoubleSolenoid(0,0);
-		sorter2Bad = new DoubleSolenoid(0,0);
-		sorter3Good = new DoubleSolenoid(0,0);
-		sorter3Bad = new DoubleSolenoid(0,0);
+		sorter0Good = new DoubleSolenoid(1,0,1);
+		sorter0Bad = new DoubleSolenoid(1,2,3);
+		sorter1Good = new DoubleSolenoid(1,4,5);
+		sorter1Bad = new DoubleSolenoid(1,6,7);
+		sorter2Good = new DoubleSolenoid(2,0,1);
+		sorter2Bad = new DoubleSolenoid(3,2,3);
+		sorter3Good = new DoubleSolenoid(3,4,5);
+		sorter3Bad = new DoubleSolenoid(3,6,7);
 		outputs = new DoubleSolenoid[] {sorter0Good, sorter1Good, sorter2Good, sorter3Good, sorter0Bad, sorter1Bad, sorter2Bad, sorter3Bad};
 	}
 
