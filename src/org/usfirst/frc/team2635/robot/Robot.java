@@ -15,11 +15,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2635.robot.commands.DriveCommand;
 import org.usfirst.frc.team2635.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2635.robot.commands.ExtenderCommand;
 import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
 import org.usfirst.frc.team2635.robot.subsystems.Dispenser;
 import org.usfirst.frc.team2635.robot.subsystems.Drive;
 import org.usfirst.frc.team2635.robot.commands.KickerCommand;
 import org.usfirst.frc.team2635.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team2635.robot.subsystems.Extender;
 import org.usfirst.frc.team2635.robot.subsystems.Intake;
 import org.usfirst.frc.team2635.robot.subsystems.Kicker;
 import org.usfirst.frc.team2635.robot.subsystems.Vision;
@@ -45,8 +47,10 @@ public class Robot extends TimedRobot {
 	public static Kicker kicker;
 	public static ColorSensorTCS34725 colorSensor;
 	public static Vision vision;
+	public static Extender extender;
 	public static Dispenser dispenser;
 	public static Intake intake;
+
 	
 	KickerCommand kickerCommand;
 	Command m_autonomousCommand;
@@ -63,14 +67,18 @@ public class Robot extends TimedRobot {
 		colorSensor = new ColorSensorTCS34725();
 		kickerCommand = new KickerCommand();
 		vision = new Vision();
+
+		extender = new Extender();
 		dispenser = new Dispenser();
 		intake = new Intake();
+
 		
 		oi.intakeButton.toggleWhenPressed(intakeCommand);
 		oi.dispenserButton.toggleWhenPressed(dispenserCommand);
 
 		
 		oi.kickerButton.toggleWhenPressed(kickerCommand); //TODO See if we need to do kickerCommand.set() elsewhere in order to get it to start without button press
+		oi.extenderButton.whenPressed(new ExtenderCommand(1.0));
 		
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());

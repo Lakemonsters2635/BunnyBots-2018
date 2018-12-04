@@ -21,7 +21,10 @@ public class RobotMap {
 	
 	//TODO:Create Real Values
 	public static final int KICKER_BUTTON = 7;
+	public static final int EXTENDER_BUTTON = 8;
 	
+	public static final int EXTENDER_IN_CHANNEL = 42;
+	public static final int EXTENDER_OUT_CHANNEL = 42;
 	
 	public static final int KICKER_MOTOR_CHANNEL = 47;
 	public static final int DISPENSER_OUT_CHANNEL = 0;

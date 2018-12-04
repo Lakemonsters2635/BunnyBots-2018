@@ -48,6 +48,9 @@ public class OI {
 	public Joystick rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
 	
 	public Button kickerButton = new JoystickButton(leftStick, RobotMap.KICKER_BUTTON);
+	
+	public Button intakeButton = new JoystickButton(rightStick, RobotMap.INTAKE_BUTTON);
+	public Button dispenserButton = new JoystickButton(leftStick, RobotMap.DISPENSER_BUTTON);
 
 }
 
