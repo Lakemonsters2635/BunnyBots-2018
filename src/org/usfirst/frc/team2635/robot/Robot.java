@@ -16,9 +16,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2635.robot.commands.DriveCommand;
 import org.usfirst.frc.team2635.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
+import org.usfirst.frc.team2635.robot.subsystems.Dispenser;
 import org.usfirst.frc.team2635.robot.subsystems.Drive;
 import org.usfirst.frc.team2635.robot.commands.KickerCommand;
 import org.usfirst.frc.team2635.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team2635.robot.subsystems.Intake;
 import org.usfirst.frc.team2635.robot.subsystems.Kicker;
 import org.usfirst.frc.team2635.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -43,6 +45,8 @@ public class Robot extends TimedRobot {
 	public static Kicker kicker;
 	public static ColorSensorTCS34725 colorSensor;
 	public static Vision vision;
+	public static Dispenser dispenser;
+	public static Intake intake;
 	
 	KickerCommand kickerCommand;
 	Command m_autonomousCommand;
@@ -59,6 +63,8 @@ public class Robot extends TimedRobot {
 		colorSensor = new ColorSensorTCS34725();
 		kickerCommand = new KickerCommand();
 		vision = new Vision();
+		dispenser = new Dispenser();
+		intake = new Intake();
 		
 		oi.kickerButton.toggleWhenPressed(kickerCommand); //TODO See if we need to do kickerCommand.set() elsewhere in order to get it to start without button press
 		
