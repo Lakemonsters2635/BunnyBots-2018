@@ -66,6 +66,10 @@ public class Robot extends TimedRobot {
 		dispenser = new Dispenser();
 		intake = new Intake();
 		
+		oi.intakeButton.toggleWhenPressed(intakeCommand);
+		oi.dispenserButton.toggleWhenPressed(dispenserCommand);
+
+		
 		oi.kickerButton.toggleWhenPressed(kickerCommand); //TODO See if we need to do kickerCommand.set() elsewhere in order to get it to start without button press
 		
 		m_chooser.addDefault("Default Auto", new ExampleCommand());

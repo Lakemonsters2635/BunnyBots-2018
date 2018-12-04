@@ -27,5 +27,7 @@ public class RobotMap {
 	public static final int DISPENSER_OUT_CHANNEL = 0;
 	public static final int DISPENSER_IN_CHANNEL = 0;
 	public static final int INTAKE_MOTOR_CHANNEL = 0;
+	public static final int INTAKE_BUTTON = 0;
+	public static final int DISPENSER_BUTTON = 0;
 	
 }
