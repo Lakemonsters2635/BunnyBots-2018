@@ -13,9 +13,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team2635.robot.commands.DispenserCommand;
 import org.usfirst.frc.team2635.robot.commands.DriveCommand;
 import org.usfirst.frc.team2635.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2635.robot.commands.ExtenderCommand;
+import org.usfirst.frc.team2635.robot.commands.IntakeCommand;
 import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
 import org.usfirst.frc.team2635.robot.subsystems.Dispenser;
 import org.usfirst.frc.team2635.robot.subsystems.Drive;
@@ -50,6 +52,8 @@ public class Robot extends TimedRobot {
 	public static Extender extender;
 	public static Dispenser dispenser;
 	public static Intake intake;
+	public static IntakeCommand intakeCommand;
+	public static DispenserCommand dispenserCommand;
 
 	
 	KickerCommand kickerCommand;
@@ -71,6 +75,8 @@ public class Robot extends TimedRobot {
 		extender = new Extender();
 		dispenser = new Dispenser();
 		intake = new Intake();
+		
+		dispenserCommand = new DispenserCommand();
 
 		
 		oi.intakeButton.toggleWhenPressed(intakeCommand);
