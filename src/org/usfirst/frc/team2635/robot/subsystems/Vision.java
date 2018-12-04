@@ -10,7 +10,7 @@ import edu.wpi.cscore.MjpegServer;
 
 
 //import edu.wpi.first.wpilibj.vision.CameraServer;
-import edu.wpi.first.wpilibj.vision.USBCamera;
+//import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
  *

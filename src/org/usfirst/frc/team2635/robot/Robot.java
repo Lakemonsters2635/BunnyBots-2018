@@ -26,6 +26,7 @@ import org.usfirst.frc.team2635.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2635.robot.subsystems.Extender;
 import org.usfirst.frc.team2635.robot.subsystems.Intake;
 import org.usfirst.frc.team2635.robot.subsystems.Kicker;
+import org.usfirst.frc.team2635.robot.subsystems.Sorter;
 import org.usfirst.frc.team2635.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.CameraServer;
 
@@ -52,6 +53,8 @@ public class Robot extends TimedRobot {
 	public static Extender extender;
 	public static Dispenser dispenser;
 	public static Intake intake;
+	public static Sorter sorter;
+	
 	public static IntakeCommand intakeCommand;
 	public static DispenserCommand dispenserCommand;
 
@@ -71,10 +74,10 @@ public class Robot extends TimedRobot {
 		colorSensor = new ColorSensorTCS34725();
 		kickerCommand = new KickerCommand();
 		vision = new Vision();
-
 		extender = new Extender();
 		dispenser = new Dispenser();
 		intake = new Intake();
+		sorter = new Sorter();
 		
 		dispenserCommand = new DispenserCommand();
 
