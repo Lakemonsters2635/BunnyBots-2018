@@ -32,5 +32,6 @@ public class RobotMap {
 	public static final int INTAKE_MOTOR_CHANNEL = 0;
 	public static final int INTAKE_BUTTON = 1;
 	public static final int DISPENSER_BUTTON = 2;
+
 	
 }
