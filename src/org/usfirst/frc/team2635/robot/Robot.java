@@ -22,11 +22,12 @@ import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
 import org.usfirst.frc.team2635.robot.subsystems.Dispenser;
 import org.usfirst.frc.team2635.robot.subsystems.Drive;
 import org.usfirst.frc.team2635.robot.commands.KickerCommand;
+import org.usfirst.frc.team2635.robot.model.SorterControl;
 import org.usfirst.frc.team2635.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2635.robot.subsystems.Extender;
 import org.usfirst.frc.team2635.robot.subsystems.Intake;
 import org.usfirst.frc.team2635.robot.subsystems.Kicker;
-import org.usfirst.frc.team2635.robot.subsystems.Sorter;
+import org.usfirst.frc.team2635.robot.subsystems.SorterB;
 import org.usfirst.frc.team2635.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.CameraServer;
 
@@ -53,10 +54,11 @@ public class Robot extends TimedRobot {
 	public static Extender extender;
 	public static Dispenser dispenser;
 	public static Intake intake;
-	public static Sorter sorter;
+	public static SorterB sorter;
 	
 	public static IntakeCommand intakeCommand;
 	public static DispenserCommand dispenserCommand;
+	public static SorterControl sortcontrol;
 
 	
 	KickerCommand kickerCommand;
@@ -77,7 +79,8 @@ public class Robot extends TimedRobot {
 		extender = new Extender();
 		dispenser = new Dispenser();
 		intake = new Intake();
-		sorter = new Sorter();
+		sorter = new SorterB();
+		sortcontrol = new SorterControl();
 		
 		dispenserCommand = new DispenserCommand();
 
@@ -166,6 +169,9 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		colorSensor.senseLoop();
+		int[] cant = sortcontrol.control();
+		sorter.sortLoop(cant);
+		//sorter.sort(cant);;
 		
 	}
 
