@@ -17,9 +17,24 @@ public class RobotMap {
 	public static final int RIGHT_JOYSTICK = 0;
 	public static final int LEFT_JOYSTICK = 1;
 	
+	public static final double WHEEL_RADIUS_INCHES = 2.93389;
+	public static final double ROBOT_LENGTH = 39; //includes bumpers
+	public static final double ROBOT_WIDTH = 34.75; //includes bumpers
+	public static final double WHEEL_SEPARATION_INCHES = 25.75;
 	
+	public static double MOTION_MAGIC_P = 5;
+	public static double MOTION_MAGIC_I = 0.0;
+	public static double MOTION_MAGIC_D = 0.0;
+	public static double MOTION_MAGIC_F = 0.7;
 	
-	//TODO:Create Real Values
+	public static double MOTION_MAGIC_DISTANCE = 3000;
+	public static double WHEEL_DIAMETER = 6;
+	
+	public static int ERRORTOLERANCE = 20;
+	public static int ROTATE_ERRORTOLERANCE = 30;
+
+	public static boolean VELOCITYDRIVEMODE = false;
+	
 	public static final int KICKER_BUTTON = 7;
 	public static final int EXTENDER_BUTTON = 8;
 	
@@ -32,6 +47,16 @@ public class RobotMap {
 	public static final int INTAKE_MOTOR_CHANNEL = 0;
 	public static final int INTAKE_BUTTON = 1;
 	public static final int DISPENSER_BUTTON = 2;
-
+	
+	public static final int ENCODER_COUNTS_PER_REVOLUTION = 4096/3;
+	public static final int MOTION_MAGIC_CRUISE_VELOCITY = 500;
+	
+	//TURNING
+	public static final double AUTO_TURN_VELOCITY = 400;
+	public static final int AUTO_TURN_ACCELERATION = 400;
+	
+	//FAST
+ 	public static final double AUTO_DRIVE_VELOCITY = 600;
+ 	public static final int AUTO_DRIVE_ACCELERATION = 700;
 	
 }
