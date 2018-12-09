@@ -146,8 +146,8 @@ public class Robot extends TimedRobot {
 
 		drive.autoInit();
 		
-		String selectedCommandName = (String) m_chooser.getSelected();
-		System.out.println("selectedCommandName:" + selectedCommandName);
+		//String selectedCommandName = (String) m_chooser.getSelected();
+		
 		m_autonomousCommand = MotionMagicLibrary.DoThing();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
