@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2635.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -83,7 +84,7 @@ public class Robot extends TimedRobot {
 		extender = new Extender();
 		dispenser = new Dispenser();
 		intake = new Intake();
-		sorter = new SorterB();
+		//sorter = new SorterB();
 		sortcontrol = new SorterControl();
 		autoCommand = new AutonomousCommand();
 		dispenserCommand = new DispenserCommand();
@@ -201,8 +202,7 @@ public class Robot extends TimedRobot {
 		driveCommand.start();
 		colorSensor.senseLoop();
 		int[] cant = sortcontrol.control();
-		sorter.sortLoop(cant);
-
+		//sorter.sortLoop(cant);
 		//sorter.sort(cant);;
 		
 	}

@@ -205,12 +205,16 @@ public class ColorSensorTCS34725 extends Subsystem{
 				//Test Color Parameters
 				if(redData < 600 && blueData < 500 && greenData < 500){
 					SmartDashboard.putString(i + " Ball Status:", "No Ball");
+					Robot.sortcontrol.colorArray[i] = 0;
 				} else if(redData > (blueData + greenData)){
 					SmartDashboard.putString(i + " Ball Status:", "Red Ball");
+					Robot.sortcontrol.colorArray[i] = 1;
 				} else if(blueData > redData && greenData > redData){
 					SmartDashboard.putString(i + " Ball Status:", "Blue Ball");
+					Robot.sortcontrol.colorArray[i] = 2;
 				} else{
 					SmartDashboard.putString(i + " Ball Status:", "Unknown Object");
+					Robot.sortcontrol.colorArray[i] = 0;
 				}
 				
 				
