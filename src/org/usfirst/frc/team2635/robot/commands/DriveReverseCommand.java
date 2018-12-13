@@ -12,7 +12,7 @@ public class DriveReverseCommand extends Command {
     public DriveReverseCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.drive);
+    	//requires(Robot.drive);
     }
 
     // Called just before this Command runs the first time

@@ -32,15 +32,7 @@ public class Vision extends Subsystem {
 		CvSink cvSink = CameraServer.getInstance().getVideo();
 
 		// Creates the CvSource and MjpegServer [2] and connects them
-		CameraServer.getInstance().putVideo("Blur", 640, 480);
-		
-//		UsbCamera usbCamera = new UsbCamera("USB Camera 0", 0);
-//		MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 1181);
-//		mjpegServer1.setSource(usbCamera); CvSink cvSink = new CvSink("opencv_USB Camera 0");
-//		cvSink.setSource(usbCamera);
-//		CvSource outputStream = new CvSource("Blur", PixelFormat.kMJPEG, 640, 480, 30);
-//		MjpegServer mjpegServer2 = new MjpegServer("serve_Blur", 1182);
-//		mjpegServer2.setSource(outputStream);
+		//CameraServer.getInstance().putVideo("Blur", 640, 480);
 		
 	}
     public void initDefaultCommand() {
