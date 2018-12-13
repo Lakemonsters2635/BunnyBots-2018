@@ -37,6 +37,7 @@ public class RobotMap {
 	
 	public static final int KICKER_BUTTON = 7;
 	public static final int EXTENDER_BUTTON = 8;
+	public static final int DRIVE_BUTTON = 9;
 	
 	public static final int EXTENDER_IN_CHANNEL = 5;
 	public static final int EXTENDER_OUT_CHANNEL = 6;
