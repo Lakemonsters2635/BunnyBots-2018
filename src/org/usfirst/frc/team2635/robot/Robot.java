@@ -17,8 +17,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Calendar;
 
 import org.usfirst.frc.team2635.robot.commands.AutonomousCommand;
+import org.usfirst.frc.team2635.robot.commands.AutonomousStraightCommand;
+import org.usfirst.frc.team2635.robot.commands.AutonomousTurnCommand;
 import org.usfirst.frc.team2635.robot.commands.DispenserCommand;
 import org.usfirst.frc.team2635.robot.commands.DriveCommand;
+import org.usfirst.frc.team2635.robot.commands.DriveForwardCommand;
 import org.usfirst.frc.team2635.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2635.robot.commands.ExtenderCommand;
 import org.usfirst.frc.team2635.robot.commands.IntakeCommand;
@@ -68,7 +71,7 @@ public class Robot extends TimedRobot {
 	
 	KickerCommand kickerCommand;
 	Command m_autonomousCommand;
-	SendableChooser m_chooser;
+	SendableChooser<Command> m_chooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -88,22 +91,30 @@ public class Robot extends TimedRobot {
 		sortcontrol = new SorterControl();
 		autoCommand = new AutonomousCommand();
 		dispenserCommand = new DispenserCommand();
+		driveCommand = new DriveCommand();
 		
-		m_chooser = new SendableChooser();
+		m_chooser = new SendableChooser<Command>();
 
 		oi.intakeButton.toggleWhenPressed(intakeCommand);
 		oi.dispenserButton.toggleWhenPressed(dispenserCommand);
+		oi.driveButton.toggleWhenPressed(driveCommand);
 
 		
 		oi.kickerButton.toggleWhenPressed(kickerCommand); //TODO See if we need to do kickerCommand.set() elsewhere in order to get it to start without button press
 		oi.extenderButton.whenPressed(new ExtenderCommand(1.0));
 		
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		drive = new Drive();
-		driveCommand = new DriveCommand();
+		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		
+		//TODO: Replace constants in AutonomousStraightCommand
+		m_chooser.addObject("Go Forward", new AutonomousStraightCommand(1.0, 1.0, 1.0));
+
+		//TODO: Replace constants in AutonomousTurnCommand
+		m_chooser.addObject("Turn", new AutonomousTurnCommand(100.0, 1.0));
+
 	}
 
 	/**
@@ -127,6 +138,12 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		
+		//Code to test that chooser works properly.
+//		m_autonomousCommand = m_chooser.getSelected();		
+//		String selectedCommandName = m_chooser.getSelected().getName();
+//		System.out.println("Selected Command:" + selectedCommandName);
+
 		Scheduler.getInstance().run();
 	}
 
@@ -143,13 +160,14 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//m_autonomousCommand = m_chooser.getSelected();
+	
+		m_autonomousCommand = m_chooser.getSelected();
 
 		drive.autoInit();
 		
-		//String selectedCommandName = (String) m_chooser.getSelected();
-		
-		m_autonomousCommand = MotionMagicLibrary.DoThing();
+		String selectedCommandName = m_chooser.getSelected().getName();
+		System.out.println("Running:" + selectedCommandName);
+		//m_autonomousCommand = MotionMagicLibrary.DoThing();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

@@ -55,6 +55,8 @@ public class OI {
 	
 	public Button sorterGoodButton = new JoystickButton(rightStick, 11);
 	public Button sorterBadButton = new JoystickButton(rightStick, 10);
+	
+	public Button driveButton = new JoystickButton(rightStick, RobotMap.DRIVE_BUTTON);
 }
 
 
