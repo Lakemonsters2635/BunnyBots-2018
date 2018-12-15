@@ -4,6 +4,7 @@ package org.usfirst.frc.team2635.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.cscore.CvSource;
 
@@ -26,13 +27,16 @@ public class Vision extends Subsystem {
 	public Vision() {
 
 		// Creates UsbCamera and MjpegServer [1] and connects them
-		CameraServer.getInstance().startAutomaticCapture();
-		
-		//Creates the CvSink and connects it to the UsbCamera 
-		CvSink cvSink = CameraServer.getInstance().getVideo();
+		//CameraServer.getInstance().startAutomaticCapture();
 
 		// Creates the CvSource and MjpegServer [2] and connects them
 		//CameraServer.getInstance().putVideo("Blur", 640, 480);
+		camera = CameraServer.getInstance().startAutomaticCapture();
+		camera.setFPS(10);
+		camera.setResolution(160, 120);
+		
+		//Creates the CvSink and connects it to the UsbCamera 
+		//CvSink cvSink = CameraServer.getInstance().getVideo();
 		
 	}
     public void initDefaultCommand() {
