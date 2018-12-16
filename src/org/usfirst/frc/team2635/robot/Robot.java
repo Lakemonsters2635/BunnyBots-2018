@@ -206,6 +206,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		
 		if (autoCommand != null) {
 			autoCommand.cancel();
 		}
@@ -230,10 +231,8 @@ public class Robot extends TimedRobot {
 		int[] cant = sortcontrol.control();
 		//sorter.sortLoop(cant);
 		
-		
 		//Andrew's Code
-		////sorter.sort(cant);;
-		
+		////sorter.sort(cant);
 	}
 
 	/**
