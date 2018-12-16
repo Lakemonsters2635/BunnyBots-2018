@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2635.robot.model;
 
 import org.usfirst.frc.team2635.robot.Robot;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
@@ -23,30 +22,25 @@ public class SorterControl {
 			ourColor = 1;
 			theirColor = 2;
 		}
-			
-		
 	}
 	
 	public int[] control(){
-		
 		int[] passArray = new int[4];
 		for(int i = 0; i<4; i++) passArray[i] = 0;
 		if(colorArray != null) { 
-		for(int i = 0; i<4; i++) {
-			if(colorArray[i] == ourColor) {
-				passArray[i] = 1;
-			} else if(colorArray[i] == theirColor) {
-				passArray[i] = 2;
-			} else {
-				passArray[i] = 0;
+			for(int i = 0; i<4; i++) {
+				if(colorArray[i] == ourColor) {
+					passArray[i] = 1;
+				} else if(colorArray[i] == theirColor) {
+					passArray[i] = 2;
+				} else {
+					passArray[i] = 0;
+				}
 			}
 		}
-		}
 		
 		
-		
-		
-		
+		//Old Version controlled by Joystick buttons
 //		if(Robot.oi.rightStick.getRawButton(11)){
 //			passArray[0] = 1;
 //			passArray[1] = 1;
@@ -61,6 +55,5 @@ public class SorterControl {
 //			passArray[1] = 3;
 //		}
 		return passArray;
-		
 	}
 }
