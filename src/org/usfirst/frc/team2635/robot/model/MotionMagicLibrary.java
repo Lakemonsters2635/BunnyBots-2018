@@ -3,7 +3,10 @@ package org.usfirst.frc.team2635.robot.model;
 import org.usfirst.frc.team2635.robot.RobotMap;
 import org.usfirst.frc.team2635.robot.commands.AutonomousStraightCommand;
 import org.usfirst.frc.team2635.robot.commands.AutonomousTurnCommand;
+import org.usfirst.frc.team2635.robot.commands.ExtenderCommand;
 import org.usfirst.frc.team2635.robot.commands.PauseCommand;
+import org.usfirst.frc.team2635.robot.commands.ProcessBall;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class MotionMagicLibrary {
@@ -81,12 +84,15 @@ public class MotionMagicLibrary {
 		return driveParams;
 
 	}
-	public static CommandGroup DoThing() {
+	public static CommandGroup AutonomousStandard() {
 		CommandGroup output;
 		output = new CommandGroup();
-		
-		output.addSequential(new AutonomousStraightCommand(10, 400, 500));
-		
+		for (int i=0; i<4; i++) {
+			output.addSequential(new AutonomousStraightCommand(RobotMap.AUTO_CRATE_DISTANCE, RobotMap.AUTO_DRIVE_VELOCITY, RobotMap.AUTO_DRIVE_ACCELERATION));	
+			output.addSequential(new ExtenderCommand(1));
+			output.addSequential(new OpenGate());
+			output.addSequential(new CloseGate());
+		}
 		return output;
 	}
 	public static CommandGroup DoNothingCommand() {

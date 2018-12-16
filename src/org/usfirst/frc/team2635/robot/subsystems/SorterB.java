@@ -82,7 +82,19 @@ public class SorterB extends Subsystem {
 //    		}
     	}
     }
-	
+    public void autoSortLoop(int[] valueArray){
+    	sorter1Status = valueArray[0];
+    	sorter2Status = valueArray[1];
+    	sorter3Status = valueArray[2];
+    	sorter4Status = valueArray[3];
+    	
+    	for(int i=0;i<4;i++){
+    		if(valueArray[i] != 0 && !sorterArray[i].isRunning()) {
+    			sorterArray[i].ballPresent(2);
+    		}     	
+    	}
+    }
+
 	public void sorterReceive(int sorterid) {
 		if(sorterid == 1) {
 			sorterChamber1.set(Value.kReverse);

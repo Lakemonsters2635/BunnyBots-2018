@@ -31,11 +31,11 @@ public class Drive extends Subsystem {
     }
     
     public Drive(){
-    	FRmotor = new WPI_TalonSRX(4);
-    	FLmotor = new WPI_TalonSRX(2);
+    	FRmotor = new WPI_TalonSRX(RobotMap.FR_MOTOR_CHANNEL);
+    	FLmotor = new WPI_TalonSRX(RobotMap.FL_MOTOR_CHANNEL);
     	System.out.println("FLmotorInit: " + FLmotor);
-    	BRmotor = new WPI_TalonSRX(3);
-    	BLmotor = new WPI_TalonSRX(1);
+    	BRmotor = new WPI_TalonSRX(RobotMap.BR_MOTOR_CHANNEL);
+    	BLmotor = new WPI_TalonSRX(RobotMap.BL_MOTOR_CHANNEL);
     	
     	FLmotor.setSensorPhase(false);
     	FRmotor.setSensorPhase(false);

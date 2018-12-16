@@ -33,6 +33,7 @@ import org.usfirst.frc.team2635.robot.model.MotionMagicLibrary;
 import org.usfirst.frc.team2635.robot.model.SorterControl;
 import org.usfirst.frc.team2635.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2635.robot.subsystems.Extender;
+import org.usfirst.frc.team2635.robot.subsystems.Gate;
 import org.usfirst.frc.team2635.robot.subsystems.Intake;
 import org.usfirst.frc.team2635.robot.subsystems.Kicker;
 import org.usfirst.frc.team2635.robot.subsystems.SorterB;
@@ -62,6 +63,7 @@ public class Robot extends TimedRobot {
 	public static Dispenser dispenser;
 	public static Intake intake;
 	public static SorterB sorter;
+	public static Gate gate;
 	
 	public static IntakeCommand intakeCommand;
 	public static DispenserCommand dispenserCommand;
@@ -187,6 +189,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		int[] valueArray = sortcontrol.control();
+		sorter.autoSortLoop(valueArray);
+		
 	}
 
 	@Override
