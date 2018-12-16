@@ -134,31 +134,31 @@ public class ColorSensorTCS34725 extends Subsystem{
 		muxchat = new I2C(I2C.Port.kOnboard, 0x70);
 		tcaselect(0);
 		confirmedSensors = new Boolean[8];
-			m_i2c = new I2C(port, kAddress);
-			m_CurrentMeasurement = new ArrayList<TCS34725Measurement>();
-			for(int i = 0; i<8;i++){
-				m_CurrentMeasurement.add(new TCS34725Measurement((byte)0, 0, 0, 0, 0));
-			}
-			// verify sensor is there
-			for(int i = 0; i<8;i++){
-				tcaselect(i);
-				byte id = getRegister(TCS34725Register.ID);
-				if (id == kID) { 
-					instances ++;
-					TCS34725Init();	
-					confirmedSensors[i] = true;
-					System.out.println("Found a TCS34725 at mux port "+ i);
-				} else {
-					confirmedSensors[i] = false;
-					System.out.println("Can't Find a TCS34725 at mux port "+ i);
-				}
-				
-			}
-			if(instances > 0){
-				m_period = period;
-				m_pollLoop = new java.util.Timer();
-				m_pollLoop.schedule(new PollTCS34725Task(this), 0L, (long) (m_period * 1000));
-			}
+		m_i2c = new I2C(port, kAddress);
+		m_CurrentMeasurement = new ArrayList<TCS34725Measurement>();
+		for(int i = 0; i<8;i++) m_CurrentMeasurement.add(new TCS34725Measurement((byte)0, 0, 0, 0, 0));
+		// verify sensor is there
+		for(int i = 0; i<8;i++){
+			tcaselect(i);
+			byte id = getRegister(TCS34725Register.ID);
+			if (id == kID) { 
+				instances ++;
+				TCS34725Init();	
+				confirmedSensors[i] = true;
+				System.out.println("Found a TCS34725 at mux port "+ i);
+			} else {
+				confirmedSensors[i] = false;
+				System.out.println("Can't Find a TCS34725 at mux port "+ i);
+			}	
+		}
+		if(instances > 0){
+			System.out.println("Found " + instances + " Color Sensors");
+			m_period = period;
+			m_pollLoop = new java.util.Timer();
+			m_pollLoop.schedule(new PollTCS34725Task(this), 0L, (long) (m_period * 1000));
+		} else {
+			System.out.println("No Color Sensors Found");
+		}
 	}
 
 	/**

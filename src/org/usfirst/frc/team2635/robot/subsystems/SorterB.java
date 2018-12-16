@@ -64,7 +64,7 @@ public class SorterB extends Subsystem {
     		} else if(valueArray[i] == 2 && !sorterArray[i].isRunning()) {
     			sorterArray[i].ballPresent(2);
     		}
-    	
+    	}
     	
     	
 //    		if(valueArray[0] == 1){
@@ -80,7 +80,6 @@ public class SorterB extends Subsystem {
 //    			sorterChamber1.set(Value.kReverse);
 //        		sorterPanel1.set(Value.kForward);
 //    		}
-    	}
     }
     public void autoSortLoop(int[] valueArray){
     	sorter1Status = valueArray[0];

@@ -191,6 +191,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		colorSensor.senseLoop();
 		int[] valueArray = sortcontrol.control();
 		sorter.autoSortLoop(valueArray);
 		
@@ -228,7 +229,10 @@ public class Robot extends TimedRobot {
 		colorSensor.senseLoop();
 		int[] cant = sortcontrol.control();
 		//sorter.sortLoop(cant);
-		//sorter.sort(cant);;
+		
+		
+		//Andrew's Code
+		////sorter.sort(cant);;
 		
 	}
 
@@ -237,5 +241,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		
 	}
 }

@@ -27,6 +27,7 @@ public class ProcessBall extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	commandFinished = false;
     	startTimer = Timer.getFPGATimestamp();
     }
 
@@ -43,7 +44,6 @@ public class ProcessBall extends Command {
     			Robot.sorter.sorterGood(sorterid);
     		}
     	} else {
-    		Robot.sorter.sorterReceive(sorterid);
     		commandFinished = true;
     	}
     	
@@ -56,15 +56,17 @@ public class ProcessBall extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.sorter.sorterReceive(sorterid);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
     
     public void ballPresent(int ballStatus) {
     	this.ballStatus = ballStatus;
-    	this.start();
+    	start();
     }
 }
