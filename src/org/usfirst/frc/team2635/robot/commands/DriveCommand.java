@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2635.robot.commands;
 
+import org.usfirst.frc.team2635.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -13,6 +15,7 @@ public class DriveCommand extends Command {
     public DriveCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.drive);
     	forward = new DriveForwardCommand();
     	reverse = new DriveReverseCommand();
     }

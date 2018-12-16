@@ -4,6 +4,7 @@ package org.usfirst.frc.team2635.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.cscore.CvSource;
 
@@ -26,21 +27,16 @@ public class Vision extends Subsystem {
 	public Vision() {
 
 		// Creates UsbCamera and MjpegServer [1] and connects them
-		CameraServer.getInstance().startAutomaticCapture();
-		
-		//Creates the CvSink and connects it to the UsbCamera 
-		CvSink cvSink = CameraServer.getInstance().getVideo();
+		//CameraServer.getInstance().startAutomaticCapture();
 
 		// Creates the CvSource and MjpegServer [2] and connects them
-		CameraServer.getInstance().putVideo("Blur", 640, 480);
+		//CameraServer.getInstance().putVideo("Blur", 640, 480);
+		camera = CameraServer.getInstance().startAutomaticCapture();
+		camera.setFPS(10);
+		camera.setResolution(160, 120);
 		
-//		UsbCamera usbCamera = new UsbCamera("USB Camera 0", 0);
-//		MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 1181);
-//		mjpegServer1.setSource(usbCamera); CvSink cvSink = new CvSink("opencv_USB Camera 0");
-//		cvSink.setSource(usbCamera);
-//		CvSource outputStream = new CvSource("Blur", PixelFormat.kMJPEG, 640, 480, 30);
-//		MjpegServer mjpegServer2 = new MjpegServer("serve_Blur", 1182);
-//		mjpegServer2.setSource(outputStream);
+		//Creates the CvSink and connects it to the UsbCamera 
+		//CvSink cvSink = CameraServer.getInstance().getVideo();
 		
 	}
     public void initDefaultCommand() {

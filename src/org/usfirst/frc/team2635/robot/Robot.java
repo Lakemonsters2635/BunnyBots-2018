@@ -89,12 +89,14 @@ public class Robot extends TimedRobot {
 		extender = new Extender();
 		dispenser = new Dispenser();
 		intake = new Intake();
+		drive = new Drive();
 		//sorter = new SorterB();
 		sortcontrol = new SorterControl();
 		autoCommand = new AutonomousCommand();
 		dispenserCommand = new DispenserCommand();
-		driveCommand = new DriveCommand();
 		
+		
+		driveCommand = new DriveCommand();
 		m_chooser = new SendableChooser<Command>();
 
 		oi.intakeButton.toggleWhenPressed(intakeCommand);
@@ -108,7 +110,7 @@ public class Robot extends TimedRobot {
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		drive = new Drive();
+		
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		
 		//TODO: Replace constants in AutonomousStraightCommand

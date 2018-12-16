@@ -11,7 +11,7 @@ public class DriveForwardCommand extends Command {
 
     public DriveForwardCommand() {
         // Use requires() here to declare subsystem dependencies
-    	requires(Robot.drive);
+    	//requires(Robot.drive);
     }
 
     // Called just before this Command runs the first time
