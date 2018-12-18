@@ -184,9 +184,6 @@ public void motionMagicDriveStraight(MotionParameters motionParams) {
 
 		FRmotor.configMotionAcceleration(motionParams.rightAcceleration, 0);
 		FLmotor.configMotionAcceleration(motionParams.leftAcceleration, 0);
-
-		FRmotor.configMotionAcceleration(motionParams.rightAcceleration, 0);
-		FLmotor.configMotionAcceleration(motionParams.leftAcceleration, 0);
 		
 		motorControl(ControlMode.MotionMagic, motionParams.leftWheelRotations, motionParams.rightWheelRotations, true);
 	}

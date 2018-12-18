@@ -47,6 +47,10 @@ public class RobotMap {
 	public static final int BR_MOTOR_CHANNEL = 3;
 	public static final int BL_MOTOR_CHANNEL = 1;
 	
+	public static final int DISPENSER_PCM_NUMBER = 0;
+	public static final int EXTENDER_PCM_NUMBER = 1;
+	
+	
 	public static final int INTAKE_BUTTON = 1;
 	public static final int DISPENSER_BUTTON = 2;
 	public static final int KICKER_BUTTON = 7;

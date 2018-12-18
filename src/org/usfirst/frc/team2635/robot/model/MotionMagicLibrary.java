@@ -85,14 +85,30 @@ public class MotionMagicLibrary {
 		return driveParams;
 
 	}
+	public static GateParams getGateParams(double wheelRadiusInches, double distanceInches, double velocity, double acceleration)
+	{
+		
+
+		double inchesPerRotation = wheelRadiusInches * 2 * Math.PI;
+		
+		double velocit = velocity;
+		double leftWheelRotations = distanceInches/inchesPerRotation;
+		
+		double rightWheelRotations = -distanceInches/inchesPerRotation;
+		
+		GateParams params = new GateParams();
+		params.acceleration = (int) acceleration;
+		params.wheelRotations = leftWheelRotations * RobotMap.ENCODER_COUNTS_PER_REVOLUTION;
+		params.velocity = (int) velocit;
+		return params;
+
+	}
 	public static CommandGroup AutonomousStandard() {
 		CommandGroup output;
 		output = new CommandGroup();
 		for (int i=0; i<4; i++) {
 			output.addSequential(new AutonomousStraightCommand(RobotMap.AUTO_CRATE_DISTANCE, RobotMap.AUTO_DRIVE_VELOCITY, RobotMap.AUTO_DRIVE_ACCELERATION));	
 			output.addSequential(new ExtenderCommand(1));
-			output.addSequential(new GateCommand());
-			output.addSequential(new GateCommand());
 		}
 		return output;
 	}
