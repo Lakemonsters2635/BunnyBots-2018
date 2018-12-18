@@ -15,7 +15,7 @@ public class Extender extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	public Extender(){
-		extender = new DoubleSolenoid(RobotMap.EXTENDER_PCM_NUMBER, RobotMap.EXTENDER_OUT_CHANNEL, RobotMap.EXTENDER_IN_CHANNEL);
+		extender = new DoubleSolenoid(RobotMap.PCM_NUMBER_0, RobotMap.EXTENDER_OUT_CHANNEL, RobotMap.EXTENDER_IN_CHANNEL);
 	}
 	
 	public void extenderOut(){
