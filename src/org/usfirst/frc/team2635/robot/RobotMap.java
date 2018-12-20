@@ -74,7 +74,6 @@ public class RobotMap {
  	public static final int AUTO_DRIVE_ACCELERATION = 700;
  	
  	//GATE
- 	public static final int GATE_VELOCITY = 1;
- 	public static final int GATE_ACCELERATION = 1;
+ 	public static final int GATE_BUTTON = 1;
 	
 }

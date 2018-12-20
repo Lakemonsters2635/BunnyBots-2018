@@ -24,6 +24,7 @@ import org.usfirst.frc.team2635.robot.commands.DriveCommand;
 import org.usfirst.frc.team2635.robot.commands.DriveForwardCommand;
 import org.usfirst.frc.team2635.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2635.robot.commands.ExtenderCommand;
+import org.usfirst.frc.team2635.robot.commands.GateCommand;
 import org.usfirst.frc.team2635.robot.commands.IntakeCommand;
 import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
 import org.usfirst.frc.team2635.robot.subsystems.Dispenser;
@@ -65,11 +66,14 @@ public class Robot extends TimedRobot {
 	public static SorterB sorter;
 	public static Gate gate;
 	
+	
 	public static IntakeCommand intakeCommand;
 	public static DispenserCommand dispenserCommand;
 	public static SorterControl sortcontrol;
 	public static AutonomousCommand autoCommand;
 	public static DriveCommand driveCommand;
+	public static GateCommand gateCommand;
+	public static ExtenderCommand extenderCommand;
 	
 	KickerCommand kickerCommand;
 	Command m_autonomousCommand;
@@ -81,12 +85,14 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		
 		oi = new OI();
 		kicker = new Kicker();
 		colorSensor = new ColorSensorTCS34725();
 		kickerCommand = new KickerCommand();
 		vision = new Vision();
 		extender = new Extender();
+		gate = new Gate();
 		dispenser = new Dispenser();
 		intake = new Intake();
 		drive = new Drive();
@@ -95,6 +101,8 @@ public class Robot extends TimedRobot {
 		autoCommand = new AutonomousCommand();
 		dispenserCommand = new DispenserCommand();
 		intakeCommand = new IntakeCommand();
+		gateCommand = new GateCommand(1.0);
+		extenderCommand = new ExtenderCommand(1.0);
 		
 		
 		driveCommand = new DriveCommand();
@@ -103,10 +111,10 @@ public class Robot extends TimedRobot {
 		oi.intakeButton.toggleWhenPressed(intakeCommand);
 		oi.dispenserButton.toggleWhenPressed(dispenserCommand);
 		oi.driveButton.toggleWhenPressed(driveCommand);
-
 		
+		oi.gateButton.whenPressed(gateCommand);
 		oi.kickerButton.whenPressed(kickerCommand); 
-		oi.extenderButton.whenPressed(new ExtenderCommand(1.0)); //REPLACE THIS
+		oi.extenderButton.whenPressed(extenderCommand);
 		
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
