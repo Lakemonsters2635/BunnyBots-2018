@@ -94,6 +94,7 @@ public class Robot extends TimedRobot {
 		sortcontrol = new SorterControl();
 		autoCommand = new AutonomousCommand();
 		dispenserCommand = new DispenserCommand();
+		intakeCommand = new IntakeCommand();
 		
 		
 		driveCommand = new DriveCommand();
@@ -104,8 +105,8 @@ public class Robot extends TimedRobot {
 		oi.driveButton.toggleWhenPressed(driveCommand);
 
 		
-		oi.kickerButton.toggleWhenPressed(kickerCommand); //TODO See if we need to do kickerCommand.set() elsewhere in order to get it to start without button press
-		oi.extenderButton.whenPressed(new ExtenderCommand(1.0));
+		oi.kickerButton.whenPressed(kickerCommand); 
+		oi.extenderButton.whenPressed(new ExtenderCommand(1.0)); //REPLACE THIS
 		
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -226,7 +227,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		driveCommand.start();
+		//driveCommand.start();
 		colorSensor.senseLoop();
 		int[] cant = sortcontrol.control();
 		//sorter.sortLoop(cant);

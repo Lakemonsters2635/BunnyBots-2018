@@ -38,15 +38,15 @@ public class RobotMap {
 	
 	public static final int EXTENDER_IN_CHANNEL = 5;
 	public static final int EXTENDER_OUT_CHANNEL = 6;
-	public static final int KICKER_MOTOR_CHANNEL = 0;
+	public static final int KICKER_MOTOR_CHANNEL = 5;
 	public static final int DISPENSER_OUT_CHANNEL = 7;
 	public static final int DISPENSER_IN_CHANNEL = 4;
-	public static final int INTAKE_MOTOR_CHANNEL = 0;
+	public static final int INTAKE_MOTOR_CHANNEL = 4;
 	
 	public static final int FR_MOTOR_CHANNEL = 0;
 	public static final int FL_MOTOR_CHANNEL = 2;
-	public static final int BR_MOTOR_CHANNEL = 3;
-	public static final int BL_MOTOR_CHANNEL = 1;
+	public static final int BR_MOTOR_CHANNEL = 1;
+	public static final int BL_MOTOR_CHANNEL = 3;
 	
 	public static final int PCM_NUMBER_2 = 2;
 	public static final int PCM_NUMBER_1 = 1;

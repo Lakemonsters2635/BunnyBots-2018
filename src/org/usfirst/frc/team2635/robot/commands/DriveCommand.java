@@ -15,7 +15,7 @@ public class DriveCommand extends Command {
     public DriveCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.drive);
+    	//requires(Robot.drive);
     	forward = new DriveForwardCommand();
     	reverse = new DriveReverseCommand();
     }
@@ -45,5 +45,6 @@ public class DriveCommand extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

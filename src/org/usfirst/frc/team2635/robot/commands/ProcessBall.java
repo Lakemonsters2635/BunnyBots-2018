@@ -34,7 +34,7 @@ public class ProcessBall extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double currentTimer = Timer.getFPGATimestamp();
-    	double elapsedTimer = startTimer - currentTimer;
+    	double elapsedTimer = currentTimer - startTimer;
     	if(elapsedTimer < 1.0 ) {
     		Robot.sorter.sorterReceive(sorterid);
     	} else if(elapsedTimer >= 1.0 && elapsedTimer <2.0) {
