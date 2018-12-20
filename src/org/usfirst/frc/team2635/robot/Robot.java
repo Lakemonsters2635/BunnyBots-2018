@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
 		dispenser = new Dispenser();
 		intake = new Intake();
 		drive = new Drive();
-		//sorter = new SorterB();
+		sorter = new SorterB();
 		sortcontrol = new SorterControl();
 		autoCommand = new AutonomousCommand();
 		dispenserCommand = new DispenserCommand();
@@ -230,7 +230,7 @@ public class Robot extends TimedRobot {
 		//driveCommand.start();
 		colorSensor.senseLoop();
 		int[] cant = sortcontrol.control();
-		//sorter.sortLoop(cant);
+		sorter.sortLoop(cant);
 		
 		//Andrew's Code
 		////sorter.sort(cant);
@@ -241,6 +241,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		
+		//colorSensor.senseLoop();
+		//int[] cant = sortcontrol.control();
+		//sorter.sortLoop(cant);
 	}
 }

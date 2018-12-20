@@ -28,32 +28,39 @@ public class SorterB extends Subsystem {
 	
 	public SorterB(){
 		sorterChamber1 = new DoubleSolenoid(0, 2, 3);
-		sorterPanel1 = new DoubleSolenoid(0, 0,1);
+		sorterPanel1 = new DoubleSolenoid(0, 1,0);
 		sorterChamber2 = new DoubleSolenoid(0, 6, 7);
-		sorterPanel2 = new DoubleSolenoid(0, 4,5);
-		sorterChamber3 = new DoubleSolenoid(1, 2, 3);
-		sorterPanel3 = new DoubleSolenoid(1, 0,1);
-		sorterChamber4 = new DoubleSolenoid(1, 6, 7);
-		sorterPanel4 = new DoubleSolenoid(1, 4,5);
+		sorterPanel2 = new DoubleSolenoid(0, 5,4);
+		sorterChamber3 = new DoubleSolenoid(2, 2, 3);
+		sorterPanel3 = new DoubleSolenoid(2, 1,0);
+		sorterChamber4 = new DoubleSolenoid(2, 6, 7);
+		sorterPanel4 = new DoubleSolenoid(2, 5,4);
 		
+		solenoidArray = new DoubleSolenoid[8];
 		solenoidArray[0] = sorterChamber1;
 		solenoidArray[1] = sorterChamber2;
 		solenoidArray[2] = sorterChamber3;
 		solenoidArray[3] = sorterChamber4;
+		
 		solenoidArray[4] = sorterPanel1;
-		solenoidArray[5] = sorterPanel1;
-		solenoidArray[6] = sorterPanel1;
-		solenoidArray[7] = sorterPanel1;
+		solenoidArray[5] = sorterPanel2;
+		solenoidArray[6] = sorterPanel3;
+		solenoidArray[7] = sorterPanel4;
+		
 		
 		sorter1Command = new ProcessBall(1);
 		sorter2Command = new ProcessBall(2);
 		sorter3Command = new ProcessBall(3);
 		sorter4Command = new ProcessBall(4);
 		
+		sorterArray = new ProcessBall[4];
 		sorterArray[0] = sorter1Command;
     	sorterArray[1] = sorter2Command;
     	sorterArray[2] = sorter3Command;
     	sorterArray[3] = sorter4Command;
+    	for(int i = 0; i<8; i++){
+    		solenoidArray[i].set(Value.kReverse);
+    	}
 	}
     public void sortLoop(int[] valueArray){
     	for(int i=0;i<4;i++){
@@ -86,22 +93,17 @@ public class SorterB extends Subsystem {
     	}
     }
 	public void sorterReceive(int sorterid) {
-		for(int i = 0; i<4; i++){
 			solenoidArray[sorterid-1].set(Value.kReverse);
 			solenoidArray[sorterid+3].set(Value.kReverse);
-		}
+		
 	}
 	public void sorterGood(int sorterid) {
-		for(int i = 0; i<4; i++) {
 			solenoidArray[sorterid-1].set(Value.kForward);
 			solenoidArray[sorterid+3].set(Value.kReverse);
-		}
 	}
 	public void sorterBad(int sorterid) {
-		for(int i = 0; i<4; i++) {
 			solenoidArray[sorterid-1].set(Value.kReverse);
 			solenoidArray[sorterid+3].set(Value.kForward);
-		} 
 	}
 	public void initDefaultCommand() {
         // Set the default command for a subsystem here.

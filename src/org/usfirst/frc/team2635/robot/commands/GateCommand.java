@@ -24,20 +24,12 @@ public class GateCommand extends TimedCommand {
 	
     public GateCommand(double distance, double velocity, double acceleration, double timeOut) {
     	super(timeOut);
-    	 requires(Robot.gate);
-         this.distance = distance;
-         this.velocity = velocity;
-         this.acceleration = acceleration;
-         this.useStallDetection = false;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.gate.reset();
-    	params = MotionMagicLibrary.getGateParams(RobotMap.WHEEL_RADIUS_INCHES, distance, velocity, acceleration);
-    	Robot.gate.gateInit(params);
     	
     }
 
@@ -48,25 +40,12 @@ public class GateCommand extends TimedCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean isFinished = isTimedOut();
-    	if (!isFinished) {
-    		isFinished = Robot.gate.motionMagicDone(params, RobotMap.ERRORTOLERANCE, useStallDetection);
-    	}
-
-    	if(isFinished) {
-    		
-    		System.out.println("Gate move Finished.");
-    		System.out.println("-----------");
-    	}
-    	
-    	return isFinished;
+    	return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.gate.setPIDValues(RobotMap.MOTION_MAGIC_P);
-    	Robot.gate.motorControl(ControlMode.PercentOutput, 0.0);
-    	Robot.gate.reset();
+   
     }
 
     // Called when another command which requires one or more of the same
