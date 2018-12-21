@@ -13,7 +13,7 @@ public class Gate extends Subsystem {
     // here. Call these from Commands.
 	DoubleSolenoid gate;
 	public Gate() {
-		//gate = new DoubleSolenoid(1, 6, 7);
+		gate = new DoubleSolenoid(1, 6, 7);
 	}
 	public void moveGateOut() {	
 		gate.set(Value.kForward);

@@ -56,7 +56,9 @@ public class ProcessBall extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.sorter.sorterBad(sorterid);
+    	if(ballStatus == 2){
+    		Robot.sorter.sorterBad(sorterid);
+    	}
     }
 
     // Called when another command which requires one or more of the same
@@ -64,7 +66,10 @@ public class ProcessBall extends Command {
     protected void interrupted() {
     	end();
     }
-    
+    public void toInterupt(){
+    	cancel();
+    	ballPresent(2);
+    }
     public void ballPresent(int ballStatus) {
     	this.ballStatus = ballStatus;
     	start();

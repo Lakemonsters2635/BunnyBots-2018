@@ -30,6 +30,7 @@ import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
 import org.usfirst.frc.team2635.robot.subsystems.Dispenser;
 import org.usfirst.frc.team2635.robot.subsystems.Drive;
 import org.usfirst.frc.team2635.robot.commands.KickerCommand;
+import org.usfirst.frc.team2635.robot.commands.SortCommand;
 import org.usfirst.frc.team2635.robot.model.MotionMagicLibrary;
 import org.usfirst.frc.team2635.robot.model.SorterControl;
 import org.usfirst.frc.team2635.robot.subsystems.ExampleSubsystem;
@@ -38,9 +39,10 @@ import org.usfirst.frc.team2635.robot.subsystems.Gate;
 import org.usfirst.frc.team2635.robot.subsystems.Intake;
 import org.usfirst.frc.team2635.robot.subsystems.Kicker;
 import org.usfirst.frc.team2635.robot.subsystems.SorterB;
+import org.usfirst.frc.team2635.robot.subsystems.SorterC;
 import org.usfirst.frc.team2635.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.CameraServer;
-
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -60,11 +62,17 @@ public class Robot extends TimedRobot {
 	public static Kicker kicker;
 	public static ColorSensorTCS34725 colorSensor;
 	public static Vision vision;
-	public static Extender extender;
+	//public static Extender extender;
 	public static Dispenser dispenser;
 	public static Intake intake;
-	public static SorterB sorter;
+	public static SortCommand sorterCommand;
 	public static Gate gate;
+//	public static SorterC sorter1;
+//	public static SorterC sorter2;
+//	public static SorterC sorter3;
+//	public static SorterC sorter4;
+	public static SorterB sorter;
+	
 	
 	
 	public static IntakeCommand intakeCommand;
@@ -91,18 +99,33 @@ public class Robot extends TimedRobot {
 		colorSensor = new ColorSensorTCS34725();
 		kickerCommand = new KickerCommand();
 		vision = new Vision();
-		extender = new Extender();
+		//extender = new Extender();
 		gate = new Gate();
 		dispenser = new Dispenser();
 		intake = new Intake();
 		drive = new Drive();
+//		DoubleSolenoid sorterChamber1 = new DoubleSolenoid(0, 2, 3);
+//		DoubleSolenoid sorterPanel1 = new DoubleSolenoid(0, 1,0);
+//		DoubleSolenoid sorterChamber2 = new DoubleSolenoid(0, 6, 7);
+//		DoubleSolenoid sorterPanel2 = new DoubleSolenoid(0, 5,4);
+//		DoubleSolenoid sorterChamber3 = new DoubleSolenoid(2, 2, 3);
+//		DoubleSolenoid sorterPanel3 = new DoubleSolenoid(2, 1,0);
+//		DoubleSolenoid sorterChamber4 = new DoubleSolenoid(2, 6, 7);
+//		DoubleSolenoid sorterPanel4 = new DoubleSolenoid(2, 5,4); 
+//		
+//		sorter1 = new SorterC(sorterChamber1, sorterPanel1);
+//		sorter2 = new SorterC(sorterChamber2, sorterPanel2);
+//		sorter3 = new SorterC(sorterChamber3, sorterPanel3);
+//		sorter4 = new SorterC(sorterChamber4, sorterPanel4);
+		
 		sorter = new SorterB();
 		sortcontrol = new SorterControl();
+		//sorterCommand = new SortCommand();
 		autoCommand = new AutonomousCommand();
 		dispenserCommand = new DispenserCommand();
 		intakeCommand = new IntakeCommand();
 		gateCommand = new GateCommand(1.0);
-		extenderCommand = new ExtenderCommand(1.0);
+		//extenderCommand = new ExtenderCommand(1.0);
 		
 		
 		driveCommand = new DriveCommand();
@@ -227,6 +250,7 @@ public class Robot extends TimedRobot {
 		if (driveCommand != null) {
 			driveCommand.start();
 		}
+		sorter.teleInit();
 	}
 
 	/**
@@ -235,9 +259,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		if(oi.leftStick.getRawButton(11)){sorter.interuptAll();}
 		//driveCommand.start();
 		colorSensor.senseLoop();
 		int[] cant = sortcontrol.control();
+		//new SortCommand(sorter0, cant[0]).start();
 		sorter.sortLoop(cant);
 		
 		//Andrew's Code

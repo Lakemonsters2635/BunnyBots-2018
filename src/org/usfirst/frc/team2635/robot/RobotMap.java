@@ -32,15 +32,16 @@ public class RobotMap {
 	public static double WHEEL_DIAMETER = 6;
 	
 	public static int ERRORTOLERANCE = 20;
-	public static int ROTATE_ERRORTOLERANCE = 30;
+	public static 
+	int ROTATE_ERRORTOLERANCE = 30;
 
 	public static boolean VELOCITYDRIVEMODE = false;
 	
 	public static final int EXTENDER_IN_CHANNEL = 5;
 	public static final int EXTENDER_OUT_CHANNEL = 6;
 	public static final int KICKER_MOTOR_CHANNEL = 5;
-	public static final int DISPENSER_OUT_CHANNEL = 7;
-	public static final int DISPENSER_IN_CHANNEL = 4;
+	public static final int DISPENSER_OUT_CHANNEL = 4;
+	public static final int DISPENSER_IN_CHANNEL = 5;
 	public static final int INTAKE_MOTOR_CHANNEL = 4;
 	
 	public static final int FR_MOTOR_CHANNEL = 0;

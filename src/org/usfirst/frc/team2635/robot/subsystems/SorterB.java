@@ -18,6 +18,12 @@ public class SorterB extends Subsystem {
 	public DoubleSolenoid sorterChamber4;
 	public DoubleSolenoid sorterPanel4;
 	
+	public enum SorterState {
+		measurePannel,
+		measureChannel
+	};
+	public SorterState[] sorterStates;
+	
 	ProcessBall[] sorterArray;
 	DoubleSolenoid[] solenoidArray;
 	
@@ -27,14 +33,19 @@ public class SorterB extends Subsystem {
 	ProcessBall sorter4Command;
 	
 	public SorterB(){
-		sorterChamber1 = new DoubleSolenoid(0, 2, 3);
-		sorterPanel1 = new DoubleSolenoid(0, 1,0);
-		sorterChamber2 = new DoubleSolenoid(0, 6, 7);
-		sorterPanel2 = new DoubleSolenoid(0, 5,4);
-		sorterChamber3 = new DoubleSolenoid(2, 2, 3);
-		sorterPanel3 = new DoubleSolenoid(2, 1,0);
-		sorterChamber4 = new DoubleSolenoid(2, 6, 7);
-		sorterPanel4 = new DoubleSolenoid(2, 5,4);
+		sorterStates = new SorterState[] {
+				SorterState.measurePannel, 
+				SorterState.measurePannel, 
+				SorterState.measurePannel, 
+				SorterState.measurePannel};
+		sorterChamber1 = new DoubleSolenoid(1, 4, 5);
+		sorterPanel1 = new DoubleSolenoid(2, 0, 1);
+		sorterChamber2 = new DoubleSolenoid(0, 2, 3);
+		sorterPanel2 = new DoubleSolenoid(0, 0,1);
+		sorterChamber3 = new DoubleSolenoid(2, 6, 7);
+		sorterPanel3 = new DoubleSolenoid(2, 3,2);
+		sorterChamber4 = new DoubleSolenoid(0, 5, 4);
+		sorterPanel4 = new DoubleSolenoid(0, 7,6);
 		
 		solenoidArray = new DoubleSolenoid[8];
 		solenoidArray[0] = sorterChamber1;
@@ -58,9 +69,12 @@ public class SorterB extends Subsystem {
     	sorterArray[1] = sorter2Command;
     	sorterArray[2] = sorter3Command;
     	sorterArray[3] = sorter4Command;
-    	for(int i = 0; i<8; i++){
-    		solenoidArray[i].set(Value.kReverse);
-    	}
+	}
+	public void teleInit(){
+		for(int i = 0; i<4; i++){
+			solenoidArray[i].set(Value.kReverse);
+			solenoidArray[i+4].set(Value.kForward);
+		}
 	}
     public void sortLoop(int[] valueArray){
     	for(int i=0;i<4;i++){
@@ -104,6 +118,9 @@ public class SorterB extends Subsystem {
 	public void sorterBad(int sorterid) {
 			solenoidArray[sorterid-1].set(Value.kReverse);
 			solenoidArray[sorterid+3].set(Value.kForward);
+	}
+	public void interuptAll(){
+		for(int i = 0; i<4; i++) sorterArray[i].toInterupt();
 	}
 	public void initDefaultCommand() {
         // Set the default command for a subsystem here.

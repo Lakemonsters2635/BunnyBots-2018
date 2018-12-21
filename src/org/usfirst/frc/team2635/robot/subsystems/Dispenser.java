@@ -17,7 +17,7 @@ public class Dispenser extends Subsystem {
 	DoubleSolenoid dispenser;
 	
 	public Dispenser() {
-		dispenser = new DoubleSolenoid(1, RobotMap.DISPENSER_OUT_CHANNEL, RobotMap.DISPENSER_IN_CHANNEL);
+		dispenser = new DoubleSolenoid(2, RobotMap.DISPENSER_OUT_CHANNEL, RobotMap.DISPENSER_IN_CHANNEL);
 	}
 	
 	public void dispenserOut() {
