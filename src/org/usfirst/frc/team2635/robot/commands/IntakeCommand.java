@@ -20,7 +20,11 @@ public class IntakeCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.setIntake(0.6);
+    	if(Robot.oi.leftStick.getRawButton(10)){
+    		Robot.intake.setIntake(-0.5);
+    	}else{
+    		Robot.intake.setIntake(0.5);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

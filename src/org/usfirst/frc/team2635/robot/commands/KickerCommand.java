@@ -22,14 +22,14 @@ public class KickerCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.kicker.setKicker(-0.5);
+    	Robot.kicker.setKicker(-0.75);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	double currentTimer = Timer.getFPGATimestamp();
     	double timePassed = currentTimer - startTimer;
-        return timePassed > 0.5;
+        return timePassed > 0.2;
     }
 
     // Called once after isFinished returns true

@@ -47,12 +47,13 @@ public class OI {
 	public Joystick leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
 	public Joystick rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
 	
-	public Button kickerButton = new JoystickButton(leftStick, RobotMap.KICKER_BUTTON);
+	public Button kickerButton = new JoystickButton(rightStick, RobotMap.KICKER_BUTTON);
 	
 	public Button intakeButton = new JoystickButton(rightStick, RobotMap.INTAKE_BUTTON);
-	public Button dispenserButton = new JoystickButton(leftStick, RobotMap.DISPENSER_BUTTON);
+	public Button dispenserButtonL = new JoystickButton(leftStick, RobotMap.DISPENSER_BUTTON);
+	public Button dispenserButtonR = new JoystickButton(rightStick, RobotMap.DISPENSER_BUTTON);
 	public Button extenderButton = new JoystickButton(leftStick, RobotMap.EXTENDER_BUTTON);
-	public Button gateButton = new JoystickButton(leftStick, RobotMap.GATE_BUTTON);
+	public Button gateButton = new JoystickButton(rightStick, RobotMap.GATE_BUTTON);
 	
 	public Button sorterGoodButton = new JoystickButton(rightStick, 11);
 	public Button sorterBadButton = new JoystickButton(rightStick, 10);

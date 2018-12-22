@@ -16,11 +16,12 @@ public class DispenserCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.dispenser.dispenserIn();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.dispenser.dispenserOut();
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -30,12 +31,12 @@ public class DispenserCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.dispenser.dispenserIn();
+    	Robot.dispenser.dispenserOut();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.dispenser.dispenserIn();
+    	Robot.dispenser.dispenserOut();
     }
 }

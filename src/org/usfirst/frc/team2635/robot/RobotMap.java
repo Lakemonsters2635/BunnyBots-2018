@@ -37,11 +37,11 @@ public class RobotMap {
 
 	public static boolean VELOCITYDRIVEMODE = false;
 	
-	public static final int EXTENDER_IN_CHANNEL = 5;
-	public static final int EXTENDER_OUT_CHANNEL = 6;
+	public static final int EXTENDER_IN_CHANNEL = 999;
+	public static final int EXTENDER_OUT_CHANNEL = 6999;
 	public static final int KICKER_MOTOR_CHANNEL = 5;
-	public static final int DISPENSER_OUT_CHANNEL = 4;
-	public static final int DISPENSER_IN_CHANNEL = 5;
+	public static final int DISPENSER_OUT_CHANNEL = 5;
+	public static final int DISPENSER_IN_CHANNEL = 4;
 	public static final int INTAKE_MOTOR_CHANNEL = 4;
 	
 	public static final int FR_MOTOR_CHANNEL = 0;
@@ -54,9 +54,9 @@ public class RobotMap {
 	public static final int PCM_NUMBER_0 = 0;
 	
 	
-	public static final int INTAKE_BUTTON = 1;
-	public static final int DISPENSER_BUTTON = 2;
-	public static final int KICKER_BUTTON = 7;
+	public static final int INTAKE_BUTTON = 3;
+	public static final int DISPENSER_BUTTON = 1;
+	public static final int KICKER_BUTTON = 2;
 	public static final int EXTENDER_BUTTON = 8;
 	public static final int DRIVE_BUTTON = 9;
 	
@@ -75,6 +75,6 @@ public class RobotMap {
  	public static final int AUTO_DRIVE_ACCELERATION = 700;
  	
  	//GATE
- 	public static final int GATE_BUTTON = 1;
+ 	public static final int GATE_BUTTON = 4;
 	
 }

@@ -23,7 +23,6 @@ import org.usfirst.frc.team2635.robot.commands.DispenserCommand;
 import org.usfirst.frc.team2635.robot.commands.DriveCommand;
 import org.usfirst.frc.team2635.robot.commands.DriveForwardCommand;
 import org.usfirst.frc.team2635.robot.commands.ExampleCommand;
-import org.usfirst.frc.team2635.robot.commands.ExtenderCommand;
 import org.usfirst.frc.team2635.robot.commands.GateCommand;
 import org.usfirst.frc.team2635.robot.commands.IntakeCommand;
 import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
@@ -34,7 +33,6 @@ import org.usfirst.frc.team2635.robot.commands.SortCommand;
 import org.usfirst.frc.team2635.robot.model.MotionMagicLibrary;
 import org.usfirst.frc.team2635.robot.model.SorterControl;
 import org.usfirst.frc.team2635.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team2635.robot.subsystems.Extender;
 import org.usfirst.frc.team2635.robot.subsystems.Gate;
 import org.usfirst.frc.team2635.robot.subsystems.Intake;
 import org.usfirst.frc.team2635.robot.subsystems.Kicker;
@@ -81,7 +79,7 @@ public class Robot extends TimedRobot {
 	public static AutonomousCommand autoCommand;
 	public static DriveCommand driveCommand;
 	public static GateCommand gateCommand;
-	public static ExtenderCommand extenderCommand;
+	//public static ExtenderCommand extenderCommand;
 	
 	KickerCommand kickerCommand;
 	Command m_autonomousCommand;
@@ -124,7 +122,7 @@ public class Robot extends TimedRobot {
 		autoCommand = new AutonomousCommand();
 		dispenserCommand = new DispenserCommand();
 		intakeCommand = new IntakeCommand();
-		gateCommand = new GateCommand(1.0);
+		gateCommand = new GateCommand();
 		//extenderCommand = new ExtenderCommand(1.0);
 		
 		
@@ -132,12 +130,13 @@ public class Robot extends TimedRobot {
 		m_chooser = new SendableChooser<Command>();
 
 		oi.intakeButton.toggleWhenPressed(intakeCommand);
-		oi.dispenserButton.toggleWhenPressed(dispenserCommand);
+		oi.dispenserButtonL.toggleWhenPressed(dispenserCommand);
+		oi.dispenserButtonR.toggleWhenPressed(dispenserCommand);
 		oi.driveButton.toggleWhenPressed(driveCommand);
 		
-		oi.gateButton.whenPressed(gateCommand);
+		oi.gateButton.toggleWhenPressed(gateCommand);
 		oi.kickerButton.whenPressed(kickerCommand); 
-		oi.extenderButton.whenPressed(extenderCommand);
+		//oi.extenderButton.whenPressed(extenderCommand);
 		
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -146,10 +145,10 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		
 		//TODO: Replace constants in AutonomousStraightCommand
-		m_chooser.addObject("Go Forward", new AutonomousStraightCommand(1.0, 1.0, 1.0));
+		//m_chooser.addObject("Go Forward", new AutonomousStraightCommand(1.0, 1.0, 1.0));
 
 		//TODO: Replace constants in AutonomousTurnCommand
-		m_chooser.addObject("Turn", new AutonomousTurnCommand(100.0, 1.0));
+		//m_chooser.addObject("Turn", new AutonomousTurnCommand(100.0, 1.0));
 
 	}
 
@@ -160,7 +159,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		
 		
 		if (autoCommand != null && autoCommand.isRunning())
 		{
@@ -196,13 +194,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-	
-		m_autonomousCommand = m_chooser.getSelected();
+		gateCommand.start();
+		//m_autonomousCommand = m_chooser.getSelected();
 
 		drive.autoInit();
-		
-		String selectedCommandName = m_chooser.getSelected().getName();
-		System.out.println("Running:" + selectedCommandName);
+//		
+//		String selectedCommandName = m_chooser.getSelected().getName();
+//		System.out.println("Running:" + selectedCommandName);
 		//m_autonomousCommand = MotionMagicLibrary.DoThing();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -212,9 +210,9 @@ public class Robot extends TimedRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
-		}
+//		if (m_autonomousCommand != null) {
+//			m_autonomousCommand.start();
+//		}
 	}
 
 	/**
@@ -251,6 +249,9 @@ public class Robot extends TimedRobot {
 			driveCommand.start();
 		}
 		sorter.teleInit();
+		gateCommand.start();
+		dispenserCommand.start();
+		intakeCommand.start();
 	}
 
 	/**
@@ -269,6 +270,7 @@ public class Robot extends TimedRobot {
 		//Andrew's Code
 		////sorter.sort(cant);
 	}
+	
 
 	/**
 	 * This function is called periodically during test mode.

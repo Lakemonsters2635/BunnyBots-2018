@@ -196,12 +196,12 @@ public class ColorSensorTCS34725 extends Subsystem{
 //				System.out.println("TCS34725 Blue: " + meas.getBlueData());
 //				System.out.println("TCS34725 Green: " + meas.getGreenData());
 //				System.out.println("");
-				SmartDashboard.putNumber(i + " Sensor status:", meas.getStatus());
-				SmartDashboard.putNumber(i + " Clear data:", meas.getClearData());
-				SmartDashboard.putNumber(i + " Red:", meas.getRedData());
-				SmartDashboard.putNumber(i + " Blue:", meas.getBlueData());
-				SmartDashboard.putNumber(i + " Green:", meas.getGreenData());
-				
+//				SmartDashboard.putNumber(i + " Sensor status:", meas.getStatus());
+//				SmartDashboard.putNumber(i + " Clear data:", meas.getClearData());
+//				SmartDashboard.putNumber(i + " Red:", meas.getRedData());
+//				SmartDashboard.putNumber(i + " Blue:", meas.getBlueData());
+//				SmartDashboard.putNumber(i + " Green:", meas.getGreenData());
+//				
 				//Test Color Parameters
 				if(redData < 600 && blueData < 500 && greenData < 500){
 					SmartDashboard.putString(i + " Ball Status:", "No Ball");

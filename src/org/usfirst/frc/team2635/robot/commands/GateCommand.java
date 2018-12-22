@@ -1,28 +1,29 @@
 package org.usfirst.frc.team2635.robot.commands;
 
 import org.usfirst.frc.team2635.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
  *
  */
-public class GateCommand extends TimedCommand {
+public class GateCommand extends Command {
 
 	
-    public GateCommand(double timeOut) {
-    	super(timeOut);
+    public GateCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	Robot.gate.moveGateOut();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.gate.moveGateOut();
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -31,14 +32,15 @@ public class GateCommand extends TimedCommand {
     }
 
     // Called once after isFinished returns true
-    protected void end() {
+    public void end() {
+    	//System.out.println("end");
     	Robot.gate.moveGateIn();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted() {
-    	Robot.gate.moveGateIn();
-    	
-    }
+//    protected void interrupted() {
+//    	System.out.println("interupt");
+//    	Robot.gate.moveGateIn();
+//    }
 }

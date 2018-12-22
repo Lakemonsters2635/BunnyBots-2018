@@ -3,7 +3,6 @@ package org.usfirst.frc.team2635.robot.model;
 import org.usfirst.frc.team2635.robot.RobotMap;
 import org.usfirst.frc.team2635.robot.commands.AutonomousStraightCommand;
 import org.usfirst.frc.team2635.robot.commands.AutonomousTurnCommand;
-import org.usfirst.frc.team2635.robot.commands.ExtenderCommand;
 import org.usfirst.frc.team2635.robot.commands.GateCommand;
 import org.usfirst.frc.team2635.robot.commands.PauseCommand;
 import org.usfirst.frc.team2635.robot.commands.ProcessBall;
@@ -108,7 +107,6 @@ public class MotionMagicLibrary {
 		output = new CommandGroup();
 		for (int i=0; i<4; i++) {
 			output.addSequential(new AutonomousStraightCommand(RobotMap.AUTO_CRATE_DISTANCE, RobotMap.AUTO_DRIVE_VELOCITY, RobotMap.AUTO_DRIVE_ACCELERATION));	
-			output.addSequential(new ExtenderCommand(1));
 		}
 		return output;
 	}

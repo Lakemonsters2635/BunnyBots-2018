@@ -43,6 +43,8 @@ public class ProcessBall extends Command {
     		} else {
     			Robot.sorter.sorterGood(sorterid);
     		}
+    	} else if(ballStatus == 3 && elapsedTimer < 3.0){
+    		Robot.sorter.sorterBad(sorterid);
     	} else {
     		commandFinished = true;
     	}
@@ -56,7 +58,7 @@ public class ProcessBall extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	if(ballStatus == 2){
+    	if(ballStatus == 2||ballStatus == 3){
     		Robot.sorter.sorterBad(sorterid);
     	}
     }
@@ -68,7 +70,7 @@ public class ProcessBall extends Command {
     }
     public void toInterupt(){
     	cancel();
-    	ballPresent(2);
+    	ballPresent(3);
     }
     public void ballPresent(int ballStatus) {
     	this.ballStatus = ballStatus;
