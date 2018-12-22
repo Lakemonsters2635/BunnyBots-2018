@@ -8,14 +8,21 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
 /**
  *
  */
-public class GateCommand extends Command {
+public class GateCommand extends TimedCommand {
 
 	
-    public GateCommand() {
+    public GateCommand(double timeout) {
+    	super(timeout);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.gate);
     }
-
+    public GateCommand() {
+    	super(.5);
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.gate);
+    }
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.gate.moveGateOut();
@@ -35,12 +42,13 @@ public class GateCommand extends Command {
     public void end() {
     	//System.out.println("end");
     	Robot.gate.moveGateIn();
+    	System.out.println("GateCommand end");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-//    protected void interrupted() {
-//    	System.out.println("interupt");
-//    	Robot.gate.moveGateIn();
-//    }
+    protected void interrupted() {
+    	Robot.gate.moveGateIn();
+    	System.out.println("Gate interupt");
+    }
 }

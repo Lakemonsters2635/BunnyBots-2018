@@ -7,41 +7,31 @@
 
 package org.usfirst.frc.team2635.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.util.Calendar;
-
 import org.usfirst.frc.team2635.robot.commands.AutonomousCommand;
-import org.usfirst.frc.team2635.robot.commands.AutonomousStraightCommand;
-import org.usfirst.frc.team2635.robot.commands.AutonomousTurnCommand;
 import org.usfirst.frc.team2635.robot.commands.DispenserCommand;
 import org.usfirst.frc.team2635.robot.commands.DriveCommand;
-import org.usfirst.frc.team2635.robot.commands.DriveForwardCommand;
-import org.usfirst.frc.team2635.robot.commands.ExampleCommand;
+
 import org.usfirst.frc.team2635.robot.commands.GateCommand;
+import org.usfirst.frc.team2635.robot.commands.GateTimedCommand;
 import org.usfirst.frc.team2635.robot.commands.IntakeCommand;
-import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
-import org.usfirst.frc.team2635.robot.subsystems.Dispenser;
-import org.usfirst.frc.team2635.robot.subsystems.Drive;
 import org.usfirst.frc.team2635.robot.commands.KickerCommand;
+import org.usfirst.frc.team2635.robot.commands.SimpleDrive;
 import org.usfirst.frc.team2635.robot.commands.SortCommand;
 import org.usfirst.frc.team2635.robot.model.MotionMagicLibrary;
 import org.usfirst.frc.team2635.robot.model.SorterControl;
+import org.usfirst.frc.team2635.robot.subsystems.ColorSensorTCS34725;
+import org.usfirst.frc.team2635.robot.subsystems.Dispenser;
+import org.usfirst.frc.team2635.robot.subsystems.Drive;
 import org.usfirst.frc.team2635.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2635.robot.subsystems.Gate;
 import org.usfirst.frc.team2635.robot.subsystems.Intake;
 import org.usfirst.frc.team2635.robot.subsystems.Kicker;
 import org.usfirst.frc.team2635.robot.subsystems.SorterB;
-import org.usfirst.frc.team2635.robot.subsystems.SorterC;
 import org.usfirst.frc.team2635.robot.subsystems.Vision;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -76,14 +66,19 @@ public class Robot extends TimedRobot {
 	public static IntakeCommand intakeCommand;
 	public static DispenserCommand dispenserCommand;
 	public static SorterControl sortcontrol;
-	public static AutonomousCommand autoCommand;
+	AutonomousCommand autoCommand;
 	public static DriveCommand driveCommand;
 	public static GateCommand gateCommand;
+	public static SimpleDrive simpleDriveCommand;
+	
 	//public static ExtenderCommand extenderCommand;
+	
+	Command NormalAuto;
+	Command DoNothing;
 	
 	KickerCommand kickerCommand;
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser;
+	SendableChooser m_chooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -102,6 +97,9 @@ public class Robot extends TimedRobot {
 		dispenser = new Dispenser();
 		intake = new Intake();
 		drive = new Drive();
+		
+		
+		//InitChooser();
 //		DoubleSolenoid sorterChamber1 = new DoubleSolenoid(0, 2, 3);
 //		DoubleSolenoid sorterPanel1 = new DoubleSolenoid(0, 1,0);
 //		DoubleSolenoid sorterChamber2 = new DoubleSolenoid(0, 6, 7);
@@ -124,10 +122,11 @@ public class Robot extends TimedRobot {
 		intakeCommand = new IntakeCommand();
 		gateCommand = new GateCommand();
 		//extenderCommand = new ExtenderCommand(1.0);
+		simpleDriveCommand = new SimpleDrive(15.0);
 		
 		
 		driveCommand = new DriveCommand();
-		m_chooser = new SendableChooser<Command>();
+		m_chooser = new SendableChooser();
 
 		oi.intakeButton.toggleWhenPressed(intakeCommand);
 		oi.dispenserButtonL.toggleWhenPressed(dispenserCommand);
@@ -138,11 +137,6 @@ public class Robot extends TimedRobot {
 		oi.kickerButton.whenPressed(kickerCommand); 
 		//oi.extenderButton.whenPressed(extenderCommand);
 		
-		
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
-		
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		
 		//TODO: Replace constants in AutonomousStraightCommand
 		//m_chooser.addObject("Go Forward", new AutonomousStraightCommand(1.0, 1.0, 1.0));
@@ -160,12 +154,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		
-		if (autoCommand != null && autoCommand.isRunning())
-		{
+		if (autoCommand != null && autoCommand.isRunning()) {
 			autoCommand.cancel();
 		}
-		if (driveCommand != null && driveCommand.isRunning())
-		{
+		if (driveCommand != null && driveCommand.isRunning()) {
 			driveCommand.cancel();
 		}
 	}
@@ -194,20 +186,37 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		gateCommand.start();
-		//m_autonomousCommand = m_chooser.getSelected();
+		
+//		m_autonomousCommand = m_chooser.getSelected();
 
 		drive.autoInit();
 //		
-//		String selectedCommandName = m_chooser.getSelected().getName();
-//		System.out.println("Running:" + selectedCommandName);
+		//String selectedCommandName = (String) m_chooser.getSelected();
+		//System.out.println("Running:" + selectedCommandName);
+		//switch (selectedCommandName) {
+		//case "NormalAuto":
+			m_autonomousCommand = MotionMagicLibrary.AutonomousStandard();
+			//break;
+//		default:
+//			m_autonomousCommand = MotionMagicLibrary.DoNothingCommand();
+//			
+//		}
+		
+		m_autonomousCommand.start();
 		//m_autonomousCommand = MotionMagicLibrary.DoThing();
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		
+//		 String autoSelected = SmartDashboard.getString("Auto Selector", "Default"); 
+//		 switch(autoSelected) { 
+//		 case "My Auto": 
+		
+//			 m_autonomousCommand = new MyAutoCommand(); 
+//			 break; 
+//		 case "Default Auto": 
+//		 	default:
+//			autonomousCommand = new ExampleCommand(); 
+//		 	break; 
+//		 }
+		 
 
 		// schedule the autonomous command (example)
 //		if (m_autonomousCommand != null) {
@@ -221,6 +230,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		dispenserCommand.start();
+		intakeCommand.start();
 		colorSensor.senseLoop();
 		int[] valueArray = sortcontrol.control();
 		sorter.autoSortLoop(valueArray);
@@ -260,6 +271,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		SmartDashboard.putNumber("Front Left Position", (double) drive.getFrontLeftPos());
+		SmartDashboard.putNumber("Front Right Position", (double) drive.getFrontRightPos());
+		
 		if(oi.leftStick.getRawButton(11)){sorter.interuptAll();}
 		//driveCommand.start();
 		colorSensor.senseLoop();
@@ -280,5 +295,11 @@ public class Robot extends TimedRobot {
 		//colorSensor.senseLoop();
 		//int[] cant = sortcontrol.control();
 		//sorter.sortLoop(cant);
+	}
+	public void InitChooser() {
+		m_chooser.addObject("Normal Auto", "NormalAuto");
+		m_chooser.addObject("Do nothing", "DoNothing");
+		
+		SmartDashboard.putData("Automode select", m_chooser);
 	}
 }

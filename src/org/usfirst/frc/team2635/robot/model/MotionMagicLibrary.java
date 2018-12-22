@@ -1,11 +1,10 @@
 package org.usfirst.frc.team2635.robot.model;
 
 import org.usfirst.frc.team2635.robot.RobotMap;
-import org.usfirst.frc.team2635.robot.commands.AutonomousStraightCommand;
-import org.usfirst.frc.team2635.robot.commands.AutonomousTurnCommand;
+
 import org.usfirst.frc.team2635.robot.commands.GateCommand;
-import org.usfirst.frc.team2635.robot.commands.PauseCommand;
-import org.usfirst.frc.team2635.robot.commands.ProcessBall;
+import org.usfirst.frc.team2635.robot.commands.GateTimedCommand;
+import org.usfirst.frc.team2635.robot.commands.SimpleDrive;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -84,30 +83,17 @@ public class MotionMagicLibrary {
 		return driveParams;
 
 	}
-	public static GateParams getGateParams(double wheelRadiusInches, double distanceInches, double velocity, double acceleration)
-	{
-		
-
-		double inchesPerRotation = wheelRadiusInches * 2 * Math.PI;
-		
-		double velocit = velocity;
-		double leftWheelRotations = distanceInches/inchesPerRotation;
-		
-		double rightWheelRotations = -distanceInches/inchesPerRotation;
-		
-		GateParams params = new GateParams();
-		params.acceleration = (int) acceleration;
-		params.wheelRotations = leftWheelRotations * RobotMap.ENCODER_COUNTS_PER_REVOLUTION;
-		params.velocity = (int) velocit;
-		return params;
-
-	}
+	
 	public static CommandGroup AutonomousStandard() {
 		CommandGroup output;
 		output = new CommandGroup();
-		for (int i=0; i<4; i++) {
-			output.addSequential(new AutonomousStraightCommand(RobotMap.AUTO_CRATE_DISTANCE, RobotMap.AUTO_DRIVE_VELOCITY, RobotMap.AUTO_DRIVE_ACCELERATION));	
-		}
+		output.addSequential(new GateTimedCommand(1.5));
+		output.addSequential(new SimpleDrive(2.0));
+		output.addSequential(new GateTimedCommand(3.0));
+		output.addSequential(new SimpleDrive(2.0));
+		output.addSequential(new GateTimedCommand(3.0));
+		output.addSequential(new SimpleDrive(2.0));
+		output.addSequential(new GateTimedCommand(6.0));
 		return output;
 	}
 	public static CommandGroup DoNothingCommand() {

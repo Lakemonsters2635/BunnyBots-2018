@@ -23,7 +23,7 @@ public class Intake extends Subsystem {
 		intakeMotor.set(speed);
 	}
 	public void intakeIn(){
-		intakeMotor.set(0.5);
+		intakeMotor.set(1.0);
 	}
 	public void intakeOut(){
 		intakeMotor.set(-0.5);
